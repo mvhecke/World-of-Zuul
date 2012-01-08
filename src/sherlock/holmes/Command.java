@@ -1,4 +1,3 @@
-package sherlock.holmes;
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -17,6 +16,7 @@ package sherlock.holmes;
  * @author  Michael Kolling and David J. Barnes
  * @version 2008.03.30
  */
+package sherlock.holmes;
 
 public class Command
 {

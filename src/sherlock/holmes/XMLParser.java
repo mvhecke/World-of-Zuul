@@ -7,10 +7,6 @@
  */
 package sherlock.holmes;
 
-/**
- *
- * @author Marcellino
- */
 import java.io.FileReader;
 import java.util.HashMap;
 import org.xml.sax.Attributes;

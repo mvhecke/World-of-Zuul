@@ -1,8 +1,3 @@
-package sherlock.holmes;
-
-import java.util.HashMap;
-import java.util.Set;
-
 /**
  * Class Room - a room in an adventure game.
  *
@@ -16,6 +11,10 @@ import java.util.Set;
  * @author  Michael Kolling and David J. Barnes
  * @version 2008.03.30
  */
+package sherlock.holmes;
+
+import java.util.HashMap;
+import java.util.Set;
 
 public class Room 
 {

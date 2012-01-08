@@ -14,7 +14,6 @@
  * @author  Rico de Feijter, Marcellino van Hecke
  * @version 1.0
  */
-
 package sherlock.holmes;
 
 import java.util.HashMap;

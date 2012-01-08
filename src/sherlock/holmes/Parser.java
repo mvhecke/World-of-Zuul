@@ -1,7 +1,3 @@
-package sherlock.holmes;
-
-import java.util.Scanner;
-
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -18,6 +14,9 @@ import java.util.Scanner;
  * @author  Michael Kolling and David J. Barnes
  * @version 2008.03.30
  */
+package sherlock.holmes;
+
+import java.util.Scanner;
 
 public class Parser 
 {
