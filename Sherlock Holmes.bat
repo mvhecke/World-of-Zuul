@@ -1,0 +1,1 @@
+java -jar "dist/Sherlock Holmes.jar"
