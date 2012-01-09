@@ -8,8 +8,8 @@
  * connected to other rooms via exits.  For each existing exit, the room 
  * stores a reference to the neighboring room.
  * 
- * @author  Michael Kolling and David J. Barnes
- * @version 2008.03.30
+ * @author  Rico de Feijter, Marcellino van Hecke
+ * @version 1.0
  */
 package sherlock.holmes;
 

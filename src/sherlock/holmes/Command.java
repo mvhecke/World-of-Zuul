@@ -13,8 +13,8 @@
  *
  * If the command had only one word, then the second word is <null>.
  * 
- * @author  Michael Kolling and David J. Barnes
- * @version 2008.03.30
+ * @author  Rico de Feijter, Marcellino van Hecke
+ * @version 1.0
  */
 package sherlock.holmes;
 
