@@ -1,6 +1,7 @@
 /**
  *  This class is the XML parser class. This class loads in an XML file. The
  *  data from the output can be used in other classes.
+ * Piel jun eigen lul
  * 
  * @author  Rico de Feijter, Marcellino van Hecke
  * @version 1.0
