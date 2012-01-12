@@ -140,7 +140,8 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Bedankt voor het spelen. Het lukte gewoon niet om het spel af te maken? Geef maar toe!");
+        System.out.println("Het lukte gewoon niet om het spel af te maken?");
+        System.out.println("Bedankt voor het spelen. Geef maar toe!");
     }
 
     /**
@@ -150,6 +151,7 @@ public class Game
     {
         System.out.println();
         System.out.println("Welkom bij Sherlock Holmes en de Moord in het Bordeel.");
+        System.out.println();
         System.out.println("Het is buiten slecht weer(London natuurlijk) en je krijgt een bericht van een");
         System.out.println("koerier. Er is een moord gepleegd in het lokale bordeel om de hoek! Aan jou");
         System.out.println("als Sherlock Holmes, de detective, om deze moord op te lossen. Om te starten");
@@ -178,10 +180,10 @@ public class Game
         if (commandWord.equals("help")) {
             printHelp();
         }
-        else if (commandWord.equals("go")) {
+        else if (commandWord.equals("ga")) {
             goRoom(command);
         }
-        else if (commandWord.equals("quit")) {
+        else if (commandWord.equals("stop")) {
             wantToQuit = quit(command);
         }
         // else command not recognised.
@@ -197,10 +199,10 @@ public class Game
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("Je hebt om hulp gevraagd? En dat voor een detective?");
+        System.out.println("Jij stelt ook niet veel voor als je hulp nodig hebt..");
         System.out.println();
-        System.out.println("Your command words are:");
+        System.out.println("Je commando woorden zijn:");
         parser.showCommands();
     }
 
