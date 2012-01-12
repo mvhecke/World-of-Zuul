@@ -34,24 +34,25 @@ public class XMLParser extends DefaultHandler {
     
     public void runXMLConvert() throws Exception
     {
+        // Create SAX 2 parser...
+        XMLReader xr = XMLReaderFactory.createXMLReader();
+
+        // Set the ContentHandler...
+        xr.setContentHandler(new XMLParser());
+
+        FileReader xmlFile = null;
+        
         try {
-            // Create SAX 2 parser...
-            XMLReader xr = XMLReaderFactory.createXMLReader();
-
-            // Set the ContentHandler...
-            xr.setContentHandler(new XMLParser());
-            
             //Get file contents
-            FileReader xmlFile = new FileReader(this.getFilename());
-
+            xmlFile = new FileReader(this.getFilename());
+        }catch ( FileNotFoundException e ) {
+            System.err.println("Bestand niet gevonden: " + this.getFilename());
+        } finally {
             // Parse the file...
             xr.parse(new InputSource(xmlFile));
             
             //Close XMl file
             xmlFile.close();
-
-        }catch ( Exception e ) {
-            System.err.println("Bestand niet gevonden: " + this.getFilename());
         }
     }
     
