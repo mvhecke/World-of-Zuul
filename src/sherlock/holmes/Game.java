@@ -49,6 +49,7 @@ public class Game
      */
     private void createRooms()
     {
+        //Create all rooms from XML file and set all properties
         Map<Integer, HashMap<String, String>> parentMap = xmlParser.getXMLData();
         Iterator<Map.Entry<Integer, HashMap<String, String>>> parentXML = parentMap.entrySet().iterator();
 
@@ -100,30 +101,29 @@ public class Game
             }
         }
         
-        Room outside, theatre, pub, lab, office;
-      
-        // create the rooms
-        outside = new Room();
-        theatre = new Room();
-        pub = new Room();
-        lab = new Room();
-        office = new Room();
-        
-        // initialise room exits
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        //Create exits for all the created rooms
+        Map<Integer, HashMap<String, String>> parentExitMap = xmlParser.getXMLData();
+        Iterator<Map.Entry<Integer, HashMap<String, String>>> parentExitXML = parentExitMap.entrySet().iterator();
 
-        theatre.setExit("west", outside);
+        while (parentExitXML.hasNext())
+        {
+            Map.Entry<Integer, HashMap<String, String>> parentEntry = parentExitXML.next();
 
-        pub.setExit("east", outside);
+            Map<String, String> map = parentEntry.getValue();
+            Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+            while (entries.hasNext())
+            {
+                Map.Entry<String, String> entry = entries.next();
+                
+                if(entry.getKey().equals("north") || entry.getKey().equals("east") || entry.getKey().equals("south") || entry.getKey().equals("west") || entry.getKey().equals("up") || entry.getKey().equals("down"))
+                {
+                    rooms.get(parentEntry.getKey()).setExit(entry.getKey(), rooms.get(entry.getValue()));
+                }
+            }
+        }
 
-        office.setExit("west", lab);
-
-        currentRoom = outside;  // start game outside
+        currentRoom = rooms.get(1);  // start game outside
     }
 
     /**
