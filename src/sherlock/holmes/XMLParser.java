@@ -46,7 +46,7 @@ public class XMLParser extends DefaultHandler {
             //Get file contents
             xmlFile = new FileReader(this.getFilename());
         }catch ( FileNotFoundException e ) {
-            System.err.println("Bestand niet gevonden: " + this.getFilename());
+            System.err.println("Bestand niet gevonden: " + this.getFilename() + ". Dit bestand is vereist voor een correcte werking van het spel.");
         } finally {
             // Parse the file...
             xr.parse(new InputSource(xmlFile));
