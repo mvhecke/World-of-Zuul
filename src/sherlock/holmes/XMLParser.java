@@ -9,7 +9,6 @@ package sherlock.holmes;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
