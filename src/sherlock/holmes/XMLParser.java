@@ -7,7 +7,9 @@
  */
 package sherlock.holmes;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -30,7 +32,7 @@ public class XMLParser extends DefaultHandler {
         xmlData = new HashMap<Integer, HashMap<String, String>>();
     }
     
-    public void runXMLConvert()
+    public void runXMLConvert() throws Exception
     {
         try {
             // Create SAX 2 parser...
@@ -38,12 +40,18 @@ public class XMLParser extends DefaultHandler {
 
             // Set the ContentHandler...
             xr.setContentHandler(new XMLParser());
+            
+            //Get file contents
+            FileReader xmlFile = new FileReader(this.getFilename());
 
             // Parse the file...
-            xr.parse(new InputSource(new FileReader(this.getFilename())));
+            xr.parse(new InputSource(xmlFile));
+            
+            //Close XMl file
+            xmlFile.close();
 
         }catch ( Exception e ) {
-            e.printStackTrace();
+            System.err.println("Bestand niet gevonden: " + this.getFilename());
         }
     }
     
