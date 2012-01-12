@@ -63,9 +63,39 @@ public class Game
             {
                 Map.Entry<String, String> entry = entries.next();
                 
-                if(entry.getKey().equals("description"))
+                if(!rooms.containsValue(parentEntry.getKey()))
                 {
-                    rooms.put(parentEntry.getKey(), new Room(entry.getKey()));
+                    rooms.put(parentEntry.getKey(), new Room());
+                }else
+                {
+                    if(entry.getKey().equals("room_building"))
+                    {
+                        rooms.get(parentEntry.getKey()).setBuilding(Integer.parseInt(entry.getValue()));
+                    }else if(entry.getKey().equals("room_name"))
+                    {
+                        rooms.get(parentEntry.getKey()).setRoomName(entry.getValue());
+                    }else if(entry.getKey().equals("description"))
+                    {
+                        rooms.get(parentEntry.getKey()).setDescription(entry.getValue());
+                    }else if(entry.getKey().equals("north"))
+                    {
+                        rooms.get(parentEntry.getKey()).setNorth(Integer.parseInt(entry.getValue()));
+                    }else if(entry.getKey().equals("east"))
+                    {
+                        rooms.get(parentEntry.getKey()).setEast(Integer.parseInt(entry.getValue()));
+                    }else if(entry.getKey().equals("south"))
+                    {
+                        rooms.get(parentEntry.getKey()).setSouth(Integer.parseInt(entry.getValue()));
+                    }else if(entry.getKey().equals("west"))
+                    {
+                        rooms.get(parentEntry.getKey()).setWest(Integer.parseInt(entry.getValue()));
+                    }else if(entry.getKey().equals("up"))
+                    {
+                        rooms.get(parentEntry.getKey()).setUp(Integer.parseInt(entry.getValue()));
+                    }else if(entry.getKey().equals("down"))
+                    {
+                        rooms.get(parentEntry.getKey()).setDown(Integer.parseInt(entry.getValue()));
+                    }
                 }
             }
         }
@@ -73,11 +103,11 @@ public class Game
         Room outside, theatre, pub, lab, office;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        outside = new Room();
+        theatre = new Room();
+        pub = new Room();
+        lab = new Room();
+        office = new Room();
         
         // initialise room exits
         outside.setExit("east", theatre);
@@ -100,31 +130,7 @@ public class Game
      *  Main play routine.  Loops until end of play.
      */
     public void play()
-    {
-        //Print all XML Junk
-        Map<Integer, HashMap<String, String>> parentMap = xmlParser.getXMLData();
-        Iterator<Map.Entry<Integer, HashMap<String, String>>> parentXML = parentMap.entrySet().iterator();
-
-        while (parentXML.hasNext())
-        {
-            Map.Entry<Integer, HashMap<String, String>> parentEntry = parentXML.next();
-
-            System.out.println("Parent = " + parentEntry.getKey());
-
-            Map<String, String> map = parentEntry.getValue();
-            Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
-
-            while (entries.hasNext())
-            {
-                Map.Entry<String, String> entry = entries.next();
-
-                System.out.println(entry.getKey() + " = " + entry.getValue());
-            }
-
-            System.out.println();
-
-        }
-        
+    {   
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
@@ -135,7 +141,7 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing. Good bye.");
+        System.out.println("Bedankt voor het spelen. Het lukte gewoon niet om het spel af te maken? Geef maar toe!");
     }
 
     /**
@@ -144,9 +150,13 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type 'help' if you need help.");
+        System.out.println("Welkom bij Sherlock Holmes en de Moord in het Bordeel.");
+        System.out.println("Het is buiten slecht weer(London natuurlijk) en je krijgt een bericht van een");
+        System.out.println("koerier. Er is een moord gepleegd in het lokale bordeel om de hoek! Aan jou");
+        System.out.println("als Sherlock Holmes, de detective, om deze moord op te lossen. Om te starten");
+        System.out.println("moet je eerst naar het politie bureau toe gaan.");
+        System.out.println();
+        System.out.println("Type 'help' als je hulp nodig hebt.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
     }
@@ -161,7 +171,7 @@ public class Game
         boolean wantToQuit = false;
 
         if(command.isUnknown()) {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Ik weet niet wat je bedoelt...");
             return false;
         }
 
@@ -203,7 +213,7 @@ public class Game
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
+            System.out.println("Waar naar toe?");
             return;
         }
 
@@ -213,7 +223,7 @@ public class Game
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("Er is geen deur!");
         }
         else {
             currentRoom = nextRoom;
@@ -229,7 +239,7 @@ public class Game
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            System.out.println("Met wat stoppen?");
             return false;
         }
         else {
