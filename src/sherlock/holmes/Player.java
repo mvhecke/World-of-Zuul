@@ -21,7 +21,7 @@ public class Player {
     /**
      * Set player name
      */
-    public void setPlayerName()
+    public void setPlayerName(String playerName)
     {
         this.playerName = playerName;
     }
