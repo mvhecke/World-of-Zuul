@@ -63,40 +63,39 @@ public class Game
             while (entries.hasNext())
             {
                 Map.Entry<String, String> entry = entries.next();
-                
-                if(!rooms.containsValue(parentEntry.getKey()))
+
+                if(!rooms.containsKey(parentEntry.getKey()))
                 {
                     rooms.put(parentEntry.getKey(), new Room());
-                }else
+                }
+
+                if(entry.getKey().equals("room_building"))
                 {
-                    if(entry.getKey().equals("room_building"))
-                    {
-                        rooms.get(parentEntry.getKey()).setBuilding(Integer.parseInt(entry.getValue()));
-                    }else if(entry.getKey().equals("room_name"))
-                    {
-                        rooms.get(parentEntry.getKey()).setRoomName(entry.getValue());
-                    }else if(entry.getKey().equals("description"))
-                    {
-                        rooms.get(parentEntry.getKey()).setDescription(entry.getValue());
-                    }else if(entry.getKey().equals("north"))
-                    {
-                        rooms.get(parentEntry.getKey()).setNorth(Integer.parseInt(entry.getValue()));
-                    }else if(entry.getKey().equals("east"))
-                    {
-                        rooms.get(parentEntry.getKey()).setEast(Integer.parseInt(entry.getValue()));
-                    }else if(entry.getKey().equals("south"))
-                    {
-                        rooms.get(parentEntry.getKey()).setSouth(Integer.parseInt(entry.getValue()));
-                    }else if(entry.getKey().equals("west"))
-                    {
-                        rooms.get(parentEntry.getKey()).setWest(Integer.parseInt(entry.getValue()));
-                    }else if(entry.getKey().equals("up"))
-                    {
-                        rooms.get(parentEntry.getKey()).setUp(Integer.parseInt(entry.getValue()));
-                    }else if(entry.getKey().equals("down"))
-                    {
-                        rooms.get(parentEntry.getKey()).setDown(Integer.parseInt(entry.getValue()));
-                    }
+                    rooms.get(parentEntry.getKey()).setBuilding(Integer.parseInt(entry.getValue()));
+                }else if(entry.getKey().equals("room_name"))
+                {
+                    rooms.get(parentEntry.getKey()).setRoomName(entry.getValue());
+                }else if(entry.getKey().equals("description"))
+                {
+                    rooms.get(parentEntry.getKey()).setDescription(entry.getValue());
+                }else if(entry.getKey().equals("north"))
+                {
+                    rooms.get(parentEntry.getKey()).setNorth(Integer.parseInt(entry.getValue()));
+                }else if(entry.getKey().equals("east"))
+                {
+                    rooms.get(parentEntry.getKey()).setEast(Integer.parseInt(entry.getValue()));
+                }else if(entry.getKey().equals("south"))
+                {
+                    rooms.get(parentEntry.getKey()).setSouth(Integer.parseInt(entry.getValue()));
+                }else if(entry.getKey().equals("west"))
+                {
+                    rooms.get(parentEntry.getKey()).setWest(Integer.parseInt(entry.getValue()));
+                }else if(entry.getKey().equals("up"))
+                {
+                    rooms.get(parentEntry.getKey()).setUp(Integer.parseInt(entry.getValue()));
+                }else if(entry.getKey().equals("down"))
+                {
+                    rooms.get(parentEntry.getKey()).setDown(Integer.parseInt(entry.getValue()));
                 }
             }
         }
