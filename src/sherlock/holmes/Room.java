@@ -63,6 +63,15 @@ public class Room
     }
     
     /**
+     * Return the name of the room
+     * @return String
+     */
+    public String getRoomName()
+    {
+        return roomName;
+    }
+    
+    /**
      * Set description for room
      * @param String 
      */
@@ -139,7 +148,7 @@ public class Room
      * @return The short description of the room
      * (the one that was defined in the constructor).
      */
-    public String getShortDescription()
+    public String getDescription()
     {
         return description;
     }
@@ -152,7 +161,7 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return "Je bent nu in de " + roomName + ".\n" + getExitString();
     }
 
     /**
