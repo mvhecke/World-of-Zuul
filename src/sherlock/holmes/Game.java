@@ -24,6 +24,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private HashMap<Integer, Room> rooms;
     
     private XMLParser xmlParser;
         
@@ -32,12 +33,15 @@ public class Game
      */
     public Game() throws Exception
     {
-        createRooms();
         parser = new Parser();
         
+        rooms = new HashMap<Integer, Room>();
+        
         xmlParser = new XMLParser();
-        xmlParser.setFilename("../items.xml");
+        xmlParser.setFilename("../rooms.xml");
         xmlParser.runXMLConvert();
+        
+        createRooms();
     }
 
     /**
@@ -45,6 +49,27 @@ public class Game
      */
     private void createRooms()
     {
+        Map<Integer, HashMap<String, String>> parentMap = xmlParser.getXMLData();
+        Iterator<Map.Entry<Integer, HashMap<String, String>>> parentXML = parentMap.entrySet().iterator();
+
+        while (parentXML.hasNext())
+        {
+            Map.Entry<Integer, HashMap<String, String>> parentEntry = parentXML.next();
+
+            Map<String, String> map = parentEntry.getValue();
+            Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
+
+            while (entries.hasNext())
+            {
+                Map.Entry<String, String> entry = entries.next();
+                
+                if(entry.getKey().equals("description"))
+                {
+                    rooms.put(parentEntry.getKey(), new Room(entry.getKey()));
+                }
+            }
+        }
+        
         Room outside, theatre, pub, lab, office;
       
         // create the rooms
