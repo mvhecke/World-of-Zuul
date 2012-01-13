@@ -27,6 +27,9 @@ public class Game
     private HashMap<Integer, Room> rooms;
     
     private XMLParser xmlParser;
+    
+    private Player player;
+    private Conversation conversation;
         
     /**
      * Create the game and initialise its internal map.
@@ -42,6 +45,8 @@ public class Game
         xmlParser.runXMLConvert();
         
         createRooms();
+        
+        conversation = new Conversation();
     }
 
     /**
@@ -136,12 +141,21 @@ public class Game
 
         currentRoom = rooms.get(1);  // start game outside
     }
+    
+    /**
+     * Sets player name
+     */
+    public void setPlayerName()
+    {  
+        player.setPlayerName(conversation.askName());
+    }
 
     /**
      *  Main play routine.  Loops until end of play.
      */
     public void play()
-    {   
+    {
+        setPlayerName();
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and

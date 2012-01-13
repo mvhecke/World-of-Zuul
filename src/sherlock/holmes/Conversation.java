@@ -8,6 +8,31 @@
  */
 package sherlock.holmes;
 
+import java.util.Scanner;
+
 public class Conversation {
+    
+    //Field
+    private Scanner reader;
+    int progress;
+
+    /**
+     * Constructor.
+     */
+    public Conversation()
+    {
+        reader = new Scanner(System.in);    
+        progress = 0;
+    }
+    
+    /**
+     * Asks player to input her/his name and stores it.
+     */
+    public String askName()
+    {
+        System.out.println("Hoe heet jij?");    
+        String playerName = reader.nextLine().trim();
+        return playerName;
+    }
     
 }
