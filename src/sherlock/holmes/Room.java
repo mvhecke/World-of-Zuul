@@ -21,15 +21,7 @@ public class Room
     private int building;
     private String roomName;
     private String description;
-    
-    private int north;
-    private int east;
-    private int south;
-    private int west;
-    
-    private int up;
-    private int down;
-    
+
     private HashMap<String, Room> exits;        // stores exits of this room.
 
     /**
@@ -78,60 +70,6 @@ public class Room
     public void setDescription(String description)
     {
         this.description = description;
-    }
-    
-    /**
-     * Set room exit id north
-     * @param int 
-     */
-    public void setNorth(int north)
-    {
-        this.north = north;
-    }
-    
-    /**
-     * Set room exit id east
-     * @param int 
-     */
-    public void setEast(int east)
-    {
-        this.east = east;
-    }
-    
-    /**
-     * Set room exit id south
-     * @param int 
-     */
-    public void setSouth(int south)
-    {
-        this.south = south;
-    }
-    
-    /**
-     * Set room exit id west
-     * @param int 
-     */
-    public void setWest(int west)
-    {
-        this.west = west;
-    }
-    
-    /**
-     * Set room exit id up
-     * @param int 
-     */
-    public void setUp(int up)
-    {
-        this.up = up;
-    }
-    
-    /**
-     * Set room exit id down
-     * @param int 
-     */
-    public void setDown(int down)
-    {
-        this.down = down;
     }
 
     /**
@@ -188,6 +126,11 @@ public class Room
     public Room getExit(String direction) 
     {
         return exits.get(direction);
+    }
+    
+    public int getExits()
+    {
+        return exits.size();
     }
 }
 
