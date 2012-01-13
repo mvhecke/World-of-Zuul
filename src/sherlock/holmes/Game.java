@@ -103,11 +103,33 @@ public class Game
                 
                 if(entry.getKey().equals("north") || entry.getKey().equals("east") || entry.getKey().equals("south") || entry.getKey().equals("west") || entry.getKey().equals("up") || entry.getKey().equals("down"))
                 {
+                    String direction = "";
+                    
+                    if(entry.getKey().equals("north"))
+                    {
+                        direction = "noord";
+                    }else if(entry.getKey().equals("east"))
+                    {
+                        direction = "oost";
+                    }else if(entry.getKey().equals("south"))
+                    {
+                        direction = "zuid";
+                    }else if(entry.getKey().equals("west"))
+                    {
+                        direction = "west";
+                    }else if(entry.getKey().equals("up"))
+                    {
+                        direction = "boven";
+                    }else if(entry.getKey().equals("down"))
+                    {
+                        direction = "beneden";
+                    }
+                    
                     //Get room object to set as exit
                     Room exit = rooms.get(Integer.parseInt(entry.getValue()));
                     
                     //Set exits for a room
-                    rooms.get(parentEntry.getKey()).setExit(entry.getKey(), exit);
+                    rooms.get(parentEntry.getKey()).setExit(direction, exit);
                 }
             }
         }
