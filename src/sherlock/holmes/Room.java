@@ -16,6 +16,7 @@ package sherlock.holmes;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class Room 
@@ -112,11 +113,20 @@ public class Room
     private String getExitString()
     {
         String returnString = "Uitgangen :";
-        Set<String> keys = exits.keySet();
+        /*Set<String> keys = exits.keySet();
         for(String exit : keys) {
             returnString += " " + exit;
+        }*/
+        
+        returnString += "\n";
+        
+        for (Entry<String, Room> entry : exits.entrySet()) {
+            returnString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", ";
         }
-        return returnString;
+        
+        String withoutLastComma = returnString.substring(0, returnString.lastIndexOf(","));
+        
+        return withoutLastComma;
     }
 
     /**
