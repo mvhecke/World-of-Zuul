@@ -8,10 +8,12 @@
  */
 package sherlock.holmes;
 
+import java.util.ArrayList;
+
 public class Player {
     
     private String playerName;
-    private Item items;
+    private ArrayList<Item> inventory;
     
     public void Player(String playerName)
     {
@@ -20,6 +22,7 @@ public class Player {
     
     /**
      * Set player name
+     * @param String
      */
     public void setPlayerName(String playerName)
     {
@@ -33,6 +36,42 @@ public class Player {
     public String getPlayerName()
     {
         return playerName;
+    }
+    
+    /**
+     * Add an item to the inventory
+     * @param Item The given item object.
+     */
+    public void addItem(Item item)
+    {
+        inventory.add(item);
+    }
+    
+    /**
+     * Remove a specified item from the inventory
+     * @param int Specified item id
+     */
+    public void removeItem(int item)
+    {
+        inventory.remove(item);
+    }
+    
+    /**
+     * Return the size of the item inventory
+     * @return int
+     */
+    public int getInventorySize()
+    {
+        return inventory.size();
+    }
+    
+    /**
+     * Return the full inventory list
+     * @return ArrayList
+     */
+    public ArrayList getInventory()
+    {
+        return inventory;
     }
     
 }
