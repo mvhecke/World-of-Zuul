@@ -64,6 +64,7 @@ public class Game
             {
                 Map.Entry<String, String> entry = entries.next();
 
+                //Create rom object if not already exists
                 if(!rooms.containsKey(parentEntry.getKey()))
                 {
                     rooms.put(parentEntry.getKey(), new Room());
@@ -71,31 +72,16 @@ public class Game
 
                 if(entry.getKey().equals("room_building"))
                 {
+                    //Set building ID where room is located
                     rooms.get(parentEntry.getKey()).setBuilding(Integer.parseInt(entry.getValue()));
                 }else if(entry.getKey().equals("room_name"))
                 {
+                    //Set room name
                     rooms.get(parentEntry.getKey()).setRoomName(entry.getValue());
                 }else if(entry.getKey().equals("description"))
                 {
+                    //Set description for room
                     rooms.get(parentEntry.getKey()).setDescription(entry.getValue());
-                }else if(entry.getKey().equals("north"))
-                {
-                    rooms.get(parentEntry.getKey()).setNorth(Integer.parseInt(entry.getValue()));
-                }else if(entry.getKey().equals("east"))
-                {
-                    rooms.get(parentEntry.getKey()).setEast(Integer.parseInt(entry.getValue()));
-                }else if(entry.getKey().equals("south"))
-                {
-                    rooms.get(parentEntry.getKey()).setSouth(Integer.parseInt(entry.getValue()));
-                }else if(entry.getKey().equals("west"))
-                {
-                    rooms.get(parentEntry.getKey()).setWest(Integer.parseInt(entry.getValue()));
-                }else if(entry.getKey().equals("up"))
-                {
-                    rooms.get(parentEntry.getKey()).setUp(Integer.parseInt(entry.getValue()));
-                }else if(entry.getKey().equals("down"))
-                {
-                    rooms.get(parentEntry.getKey()).setDown(Integer.parseInt(entry.getValue()));
                 }
             }
         }
@@ -117,7 +103,11 @@ public class Game
                 
                 if(entry.getKey().equals("north") || entry.getKey().equals("east") || entry.getKey().equals("south") || entry.getKey().equals("west") || entry.getKey().equals("up") || entry.getKey().equals("down"))
                 {
-                    rooms.get(parentEntry.getKey()).setExit(entry.getKey(), rooms.get(entry.getValue()));
+                    //Get room object to set as exit
+                    Room exit = rooms.get(Integer.parseInt(entry.getValue()));
+                    
+                    //Set exits for a room
+                    rooms.get(parentEntry.getKey()).setExit(entry.getKey(), exit);
                 }
             }
         }
