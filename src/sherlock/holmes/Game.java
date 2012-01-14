@@ -60,7 +60,7 @@ public class Game
         
         //Get XML content for the items
         itemsXML = new XMLParser();
-        itemsXML.setFilename("../rooms.xml");
+        itemsXML.setFilename("../items.xml");
         itemsXML.runXMLConvert();
         
         conversation = new Conversation();
