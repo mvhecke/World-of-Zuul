@@ -24,9 +24,12 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private HashMap<Integer, Room> rooms;
     
-    private XMLParser xmlParser;
+    private XMLParser roomsXML;
+    private XMLParser itemsXML;
+    
+    private HashMap<Integer, Room> rooms;
+    private HashMap<Integer, Item> items;
     
     private Player player;
     private Conversation conversation;
@@ -38,15 +41,28 @@ public class Game
     {
         parser = new Parser();
         
+        //Create player
+        player = new Player();
+        
+        //Create room storage
         rooms = new HashMap<Integer, Room>();
         
-        xmlParser = new XMLParser();
-        xmlParser.setFilename("../rooms.xml");
-        xmlParser.runXMLConvert();
+        //Get XML content for the rooms
+        roomsXML = new XMLParser();
+        roomsXML.setFilename("../rooms.xml");
+        roomsXML.runXMLConvert();
         
+        //Store all room data
         createRooms();
         
-        player = new Player();
+        //Create item storage
+        items = new HashMap<Integer, Item>();
+        
+        //Get XML content for the items
+        itemsXML = new XMLParser();
+        itemsXML.setFilename("../rooms.xml");
+        itemsXML.runXMLConvert();
+        
         conversation = new Conversation();
     }
 
@@ -56,7 +72,7 @@ public class Game
     private void createRooms()
     {
         //Create all rooms from XML file and set all properties
-        Map<Integer, HashMap<String, String>> parentMap = xmlParser.getXMLData();
+        Map<Integer, HashMap<String, String>> parentMap = roomsXML.getXMLData();
         Iterator<Map.Entry<Integer, HashMap<String, String>>> parentXML = parentMap.entrySet().iterator();
 
         while (parentXML.hasNext())
@@ -93,7 +109,7 @@ public class Game
         }
         
         //Create exits for all the created rooms
-        Map<Integer, HashMap<String, String>> parentExitMap = xmlParser.getXMLData();
+        Map<Integer, HashMap<String, String>> parentExitMap = roomsXML.getXMLData();
         Iterator<Map.Entry<Integer, HashMap<String, String>>> parentExitXML = parentExitMap.entrySet().iterator();
 
         while (parentExitXML.hasNext())
@@ -144,11 +160,54 @@ public class Game
     }
     
     /**
+     * Create all items and set al properties
+     */
+    public void createItems()
+    {
+        //Create all items from XML file and set all properties
+        Map<Integer, HashMap<String, String>> parentMap = itemsXML.getXMLData();
+        Iterator<Map.Entry<Integer, HashMap<String, String>>> parentXML = parentMap.entrySet().iterator();
+
+        while (parentXML.hasNext())
+        {
+            Map.Entry<Integer, HashMap<String, String>> parentEntry = parentXML.next();
+
+            Map<String, String> map = parentEntry.getValue();
+            Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
+
+            while (entries.hasNext())
+            {
+                Map.Entry<String, String> entry = entries.next();
+
+                //Create item object if not already exists
+                if(!items.containsKey(parentEntry.getKey()))
+                {
+                    items.put(parentEntry.getKey(), new Item());
+                }
+
+                if(entry.getKey().equals("item_room"))
+                {
+                    //Set room ID where item is located
+                    items.get(parentEntry.getKey()).setItemRoom(Integer.parseInt(entry.getValue()));
+                }else if(entry.getKey().equals("item_name"))
+                {
+                    //Set item name
+                    items.get(parentEntry.getKey()).setItemName(entry.getValue());
+                }else if(entry.getKey().equals("item_value"))
+                {
+                    //Set item value
+                    items.get(parentEntry.getKey()).setItemValue(Integer.parseInt(entry.getValue()));
+                }
+            }
+        }
+    }
+    
+    /**
      * Sets player name
      */
     public void setPlayerName()
     {  
-        player.setPlayerName(conversation.askName());
+        player.setPlayerName(conversation.askQuestionInput("Hoe heet jij?"));
     }
 
     /**
