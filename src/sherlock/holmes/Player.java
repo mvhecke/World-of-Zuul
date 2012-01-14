@@ -17,6 +17,7 @@ public class Player {
     
     public void Player(String playerName)
     {
+        inventory = new ArrayList<Item>();
         this.playerName = playerName;
     }
     
