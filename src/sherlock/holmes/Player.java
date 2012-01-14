@@ -13,12 +13,11 @@ import java.util.ArrayList;
 public class Player {
     
     private String playerName;
-    private ArrayList<Item> inventory;
+    private ArrayList<Item> inventory = new ArrayList<Item>();
     
-    public void Player(String playerName)
+    public void Player()
     {
-        inventory = new ArrayList<Item>();
-        this.playerName = playerName;
+        //inventory = new ArrayList<Item>();
     }
     
     /**
