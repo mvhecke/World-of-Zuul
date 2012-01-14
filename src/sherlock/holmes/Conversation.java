@@ -30,7 +30,8 @@ public class Conversation {
      */
     public String askName()
     {
-        System.out.println("Hoe heet jij?");    
+        System.out.println("Hoe heet jij?");
+        System.out.print("> ");
         String playerName = reader.nextLine().trim();
         return playerName;
     }
