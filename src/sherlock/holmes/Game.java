@@ -46,6 +46,7 @@ public class Game
         
         createRooms();
         
+        player = new Player();
         conversation = new Conversation();
     }
 
@@ -176,7 +177,7 @@ public class Game
     private void printWelcome(String playername)
     {
         System.out.println();
-        System.out.println("Welkom bij " + playername + " Sherlock Holmes en de Moord in het Bordeel.");
+        System.out.println("Welkom " + playername + " bij Sherlock Holmes en de Moord in het Bordeel.");
         System.out.println();
         System.out.println("Het is buiten slecht weer(London natuurlijk) en je krijgt een bericht van een");
         System.out.println("koerier. Er is een moord gepleegd in het lokale bordeel om de hoek! Aan jou");
@@ -276,7 +277,7 @@ public class Game
     
     public static void main(String[] args)throws Exception
     {
-        try{
+        try{ 
             Game game = new Game();
             game.play();
         }catch(Exception e){
