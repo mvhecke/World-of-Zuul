@@ -12,6 +12,7 @@
  */
 package sherlock.holmes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -21,7 +22,8 @@ public class Room
     private String roomName;
     private String description;
 
-    private HashMap<String, Room> exits;        // stores exits of this room.
+    private HashMap<String, Room> exits;// stores exits of this room.
+    private ArrayList<Item> items;
 
     /**
      * Create a room described "description". Initially, it has
@@ -141,9 +143,23 @@ public class Room
         return exits.get(direction);
     }
     
-    public int getExits()
+    /**
+     * Assign item to room
+     * @param Item Insert an item object 
+     */
+    public void setItem(Item item)
     {
-        return exits.size();
+        items.add(item);
+    }
+    
+    /**
+     * Return an item object from specified ID
+     * @param int Item ID
+     * @return Item
+     */
+    public Item getItem(int item)
+    {
+        return items.get(item);
     }
 }
 
