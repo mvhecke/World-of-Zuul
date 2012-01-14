@@ -281,6 +281,10 @@ public class Game
         }else if (commandWord.equals("kijk")) {
             lookInRoom();
         }
+        else if (commandWord.equals("pak")) {
+            //To be developed
+            pickupItem(command);
+        }
         else if (commandWord.equals("stop")) {
             wantToQuit = quit(command);
         }
@@ -363,16 +367,46 @@ public class Game
     {
         String printString = "";
         
+        int itemNumber = 1;
+        
         for (Iterator it = currentRoom.getItems().iterator(); it.hasNext();) {
             Item roomItem = (Item) it.next();
             
-            printString += roomItem.getItemName() + ", ";
+            printString += itemNumber + ": " + roomItem.getItemName() + "\n";
+            
+            itemNumber++;
         }
         
-        //Cut of last comma
-        printString = printString.substring(0, printString.lastIndexOf(","));
+        //Cut of last new line
+        printString = printString.substring(0, printString.lastIndexOf("\n"));
         
         System.out.println(printString);
+    }
+    
+    
+    public void pickupItem(Command command)
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Wat oppakken?");
+            return;
+        }
+        
+        int itemNumber = Integer.parseInt(command.getSecondWord()) - 1;
+        
+        if(itemNumber < currentRoom.getItemsAmount())
+        {
+            //Get Item object
+            Item pickupItem = currentRoom.getItem(itemNumber);
+            
+            //Add item to inventory
+            player.addItem(pickupItem);
+
+            System.out.println(pickupItem.getItemName() + " zit nu in je tas.");
+        }else
+        {
+            System.out.println("Voorwerp bestaat niet!");
+        }
     }
     
     /** 
