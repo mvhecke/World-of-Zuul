@@ -170,6 +170,15 @@ public class Room
     {
         return items;
     }
+    
+    /**
+     * Return amount of items in room
+     * @return int
+     */
+    public int getItemsAmount()
+    {
+        return items.size();
+    }
 }
 
 
