@@ -17,7 +17,7 @@ import java.util.Map.Entry;
 
 public class Room 
 {
-    private int building;
+    private int buildingID;
     private String roomName;
     private String description;
 
@@ -39,9 +39,14 @@ public class Room
      * Set the parent building from room
      * @param int 
      */
-    public void setBuilding(int building)
+    public void setBuildingID(int buildingID)
     {
-        this.building = building;
+        this.buildingID = buildingID;
+    }
+    
+    public int getBuildingID()
+    {
+        return buildingID;
     }
     
     /**

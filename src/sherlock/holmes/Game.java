@@ -97,7 +97,7 @@ public class Game
                 if(entry.getKey().equals("room_building"))
                 {
                     //Set building ID where room is located
-                    rooms.get(parentEntry.getKey()).setBuilding(Integer.parseInt(entry.getValue()));
+                    rooms.get(parentEntry.getKey()).setBuildingID(Integer.parseInt(entry.getValue()));
                 }else if(entry.getKey().equals("room_name"))
                 {
                     //Set room name
