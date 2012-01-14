@@ -282,8 +282,10 @@ public class Game
             lookInRoom();
         }
         else if (commandWord.equals("pak")) {
-            //To be developed
             pickupItem(command);
+        }
+        else if (commandWord.equals("tas")) {
+            showInventory();
         }
         else if (commandWord.equals("stop")) {
             wantToQuit = quit(command);
@@ -383,7 +385,10 @@ public class Game
         System.out.println(printString);
     }
     
-    
+    /**
+     * Pickup specific item
+     * @param Command 
+     */
     public void pickupItem(Command command)
     {
         if(!command.hasSecondWord()) {
@@ -394,7 +399,7 @@ public class Game
         
         int itemNumber = Integer.parseInt(command.getSecondWord()) - 1;
         
-        if(currentRoom.getItemsAmount() >= itemNumber)
+        if(currentRoom.getItemsAmount() > itemNumber)
         {
             //Get Item object
             Item pickupItem = currentRoom.getItem(itemNumber);
@@ -402,10 +407,39 @@ public class Game
             //Add item to inventory
             player.addItem(pickupItem);
 
-            System.out.println(pickupItem.getItemName() + " zit nu in je tas.");
+            System.out.println("Het voorwerp '" + pickupItem.getItemName() + "' zit nu in je tas.");
         }else
         {
             System.out.println("Voorwerp bestaat niet!");
+        }
+    }
+    
+    /**
+     * Show players inventory
+     */
+    public void showInventory()
+    {
+        if(player.getInventorySize() > 0)
+        {
+            String printString = "Je tas bevat de volgende voorwerpen" + "\n";
+
+            int itemNumber = 1;
+
+            for (Iterator it = player.getInventory().iterator(); it.hasNext();) {
+                Item roomItem = (Item) it.next();
+
+                printString += itemNumber + ": " + roomItem.getItemName() + "\n";
+
+                itemNumber++;
+            }
+
+            //Cut of last new line
+            printString = printString.substring(0, printString.lastIndexOf("\n"));
+
+            System.out.println(printString);
+        }else
+        {
+            System.out.println("Je tas is leeg!");
         }
     }
     
