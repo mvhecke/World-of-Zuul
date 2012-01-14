@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+    <room id="1">
+        <room_building>1</room_building>
+        <room_name>Woonkamer</room_name>
+        <description>Je bent nu in je woonkamer, in je eigen huis.</description>
+        <north>2</north>
+        <east>11</east>
+        <south></south>
+        <west></west>
+        <up></up>
+        <down></down>
+    </room>
+    <room id="2">
+        <room_building>1</room_building>
+        <room_name>Slaapkamer</room_name>
+        <description>Je bent nu in je slaapkamer, in je eigen huis.</description>
+        <north></north>
+        <east></east>
+        <south>1</south>
+        <west></west>
+        <up></up>
+        <down></down>
+    </room>
+    <room id="3">
+        <room_building>2</room_building>
+        <room_name>Receptie</room_name>
+        <description>Je bent nu in de receptie op het politiebureau.</description>
+        <north>11</north>
+        <east></east>
+        <south></south>
+        <west>4</west>
+        <up></up>
+        <down></down>
+    </room>
+    <room id="4">
+        <room_building>2</room_building>
+        <room_name>Bureau</room_name>
+        <description>Je bent nu in je bureau op het politiebureau.</description>
+        <north></north>
+        <east>3</east>
+        <south></south>
+        <west>5</west>
+        <up></up>
+        <down></down>
+    </room>
+    <room id="5">
+        <room_building>2</room_building>
+        <room_name>Cellen</room_name>
+        <description>Je bent nu in het cellencomplex op het politiebureau.</description>
+        <north></north>
+        <east>4</east>
+        <south></south>
+        <west></west>
+        <up></up>
+        <down></down>
+    </room>
+    <room id="6">
+        <room_building>3</room_building>
+        <room_name>Foyer</room_name>
+        <description>Je bent nu in de foyer in het bordeel.</description>
+        <north>9</north>
+        <east>8</east>
+        <south></south>
+        <west>11</west>
+        <up></up>
+        <down>7</down>
+    </room>
+    <room id="7">
+        <room_building>3</room_building>
+        <room_name>Kelder</room_name>
+        <description>Je bent nu in de kelder in het bordeel.</description>
+        <north></north>
+        <east></east>
+        <south></south>
+        <west></west>
+        <up>6</up>
+        <down></down>
+    </room>
+    <room id="8">
+        <room_building>3</room_building>
+        <room_name>Kamer 1</room_name>
+        <description>Je bent nu in Kamer 1 in het bordeel.</description>
+        <north></north>
+        <east></east>
+        <south></south>
+        <west>6</west>
+        <up></up>
+        <down></down>
+    </room>
+    <room id="9">
+        <room_building>3</room_building>
+        <room_name>Kamer 2</room_name>
+        <description>Je bent nu in Kamer 2 in het bordeel.</description>
+        <north></north>
+        <east></east>
+        <south>6</south>
+        <west></west>
+        <up></up>
+        <down></down>
+    </room>
+    <room id="10">
+        <room_building>4</room_building>
+        <room_name>Steeg</room_name>
+        <description>Je bent nu in een steeg.</description>
+        <north></north>
+        <east></east>
+        <south>11</south>
+        <west></west>
+        <up></up>
+        <down></down>
+    </room>
+    <room id="11">
+        <room_building>5</room_building>
+        <room_name>Buiten</room_name>
+        <description>Je bent nu in Kamer 1 in het bordeel.</description>
+        <north>10</north>
+        <east>6</east>
+        <south>3</south>
+        <west>1</west>
+        <up></up>
+        <down></down>
+    </room>
+</rooms>
