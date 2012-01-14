@@ -26,11 +26,11 @@ public class Conversation {
     }
     
     /**
-     * Asks player to input her/his name and stores it.
+     * Asks player to input a value
      */
-    public String askName()
+    public String askQuestionInput(String question)
     {
-        System.out.println("Hoe heet jij?");
+        System.out.println(question);
         System.out.print("> ");
         String playerName = reader.nextLine().trim();
         return playerName;
