@@ -33,8 +33,8 @@ public class Room
      */
     public Room() 
     {
-        //this.description = description;
         exits = new HashMap<String, Room>();
+        items = new ArrayList<Item>();
     }
     
     /**
@@ -160,6 +160,15 @@ public class Room
     public Item getItem(int item)
     {
         return items.get(item);
+    }
+    
+    /**
+     * Return items
+     * @return ArrayList
+     */
+    public ArrayList getItems()
+    {
+        return items;
     }
 }
 
