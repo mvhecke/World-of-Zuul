@@ -361,11 +361,18 @@ public class Game
      */
     public void lookInRoom()
     {
+        String printString = "";
+        
         for (Iterator it = currentRoom.getItems().iterator(); it.hasNext();) {
             Item roomItem = (Item) it.next();
             
-            System.out.println(roomItem.getItemName());
+            printString += roomItem.getItemName() + ", ";
         }
+        
+        //Cut of last comma
+        printString = printString.substring(0, printString.lastIndexOf(","));
+        
+        System.out.println(printString);
     }
     
     /** 
