@@ -270,6 +270,8 @@ public class Game
         }
         else if (commandWord.equals("ga")) {
             goRoom(command);
+        }else if (commandWord.equals("kijk")) {
+            //To be implemented
         }
         else if (commandWord.equals("stop")) {
             wantToQuit = quit(command);
@@ -310,7 +312,7 @@ public class Game
         {
             Room lastRoom = null;
             
-            if(visitedRooms.size() > 1)
+            if(visitedRooms.size() >= 1)
             {
                 lastRoom = visitedRooms.get(visitedRooms.size()-1);
             }
@@ -321,6 +323,10 @@ public class Game
             }else
             {
                 currentRoom = lastRoom;
+                
+                //Remove last room from ArrayList
+                visitedRooms.remove(visitedRooms.size()-1);
+                
                 System.out.println(currentRoom.getLongDescription());
             }
             
