@@ -156,7 +156,7 @@ public class Game
     public void play()
     {
         setPlayerName();
-        printWelcome();
+        printWelcome(player.getPlayerName());
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
@@ -173,10 +173,10 @@ public class Game
     /**
      * Print out the opening message for the player.
      */
-    private void printWelcome()
+    private void printWelcome(String playername)
     {
         System.out.println();
-        System.out.println("Welkom bij Sherlock Holmes en de Moord in het Bordeel.");
+        System.out.println("Welkom bij " + playername + " Sherlock Holmes en de Moord in het Bordeel.");
         System.out.println();
         System.out.println("Het is buiten slecht weer(London natuurlijk) en je krijgt een bericht van een");
         System.out.println("koerier. Er is een moord gepleegd in het lokale bordeel om de hoek! Aan jou");
