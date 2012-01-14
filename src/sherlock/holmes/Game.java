@@ -16,6 +16,7 @@
  */
 package sherlock.holmes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private ArrayList<Room> visitedRooms;
     
     private XMLParser roomsXML;
     private XMLParser itemsXML;
@@ -40,12 +42,12 @@ public class Game
     public Game() throws Exception
     {
         parser = new Parser();
+
+        player = new Player(); //Create player
         
-        //Create player
-        player = new Player();
         
-        //Create room storage
-        rooms = new HashMap<Integer, Room>();
+        rooms = new HashMap<Integer, Room>();//Create room storage
+        visitedRooms = new ArrayList<Room>();//Create visited rooms storage
         
         //Get XML content for the rooms
         roomsXML = new XMLParser();
@@ -156,7 +158,7 @@ public class Game
             }
         }
 
-        currentRoom = rooms.get(1);  // start game outside
+        currentRoom = rooms.get(1); //Starts the game in the first room
     }
     
     /**
@@ -303,18 +305,40 @@ public class Game
             System.out.println("Waar naar toe?");
             return;
         }
+        
+        if(command.getSecondWord().equals("terug"))
+        {
+            Room lastRoom = null;
+            
+            if(visitedRooms.size() > 1)
+            {
+                lastRoom = visitedRooms.get(visitedRooms.size()-1);
+            }
+            
+            if(lastRoom == currentRoom || lastRoom == null)
+            {
+                System.out.println("Je kunt niet verder terug gaan!");
+            }else
+            {
+                currentRoom = lastRoom;
+                System.out.println(currentRoom.getLongDescription());
+            }
+            
+        }else
+        {
+            String direction = command.getSecondWord();
 
-        String direction = command.getSecondWord();
+            // Try to leave current room.
+            Room nextRoom = currentRoom.getExit(direction);
 
-        // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
-
-        if (nextRoom == null) {
-            System.out.println("Er is geen deur!");
-        }
-        else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            if (nextRoom == null) {
+                System.out.println("Er is geen deur!");
+            }
+            else {
+                visitedRooms.add(currentRoom); //Add current room to visited rooms
+                currentRoom = nextRoom; //Make next room current room
+                System.out.println(currentRoom.getLongDescription());
+            }
         }
     }
 
@@ -336,9 +360,10 @@ public class Game
     
     public static void main(String[] args)throws Exception
     {
-        try{ 
+        
             Game game = new Game();
             game.play();
+        try{     
         }catch(Exception e){
             System.err.println("Er heeft zich een ernstige fout voorgedaan waardoor het spel niet meer functioneerd.");
         }
