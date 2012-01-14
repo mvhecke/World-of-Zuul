@@ -287,6 +287,9 @@ public class Game
         else if (commandWord.equals("tas")) {
             showInventory();
         }
+        else if (commandWord.equals("uitgangen")) {
+            showExits();
+        }
         else if (commandWord.equals("stop")) {
             wantToQuit = quit(command);
         }
@@ -441,6 +444,11 @@ public class Game
         {
             System.out.println("Je tas is leeg!");
         }
+    }
+    
+    public void showExits()
+    {
+        System.out.println(currentRoom.getExits());
     }
     
     /** 
