@@ -45,7 +45,6 @@ public class Game
 
         player = new Player(); //Create player
         
-        
         rooms = new HashMap<Integer, Room>();//Create room storage
         visitedRooms = new ArrayList<Room>();//Create visited rooms storage
         
@@ -64,6 +63,8 @@ public class Game
         itemsXML = new XMLParser();
         itemsXML.setFilename("../items.xml");
         itemsXML.runXMLConvert();
+        
+        createItems();
         
         conversation = new Conversation();
     }
@@ -169,36 +170,43 @@ public class Game
         //Create all items from XML file and set all properties
         Map<Integer, HashMap<String, String>> parentMap = itemsXML.getXMLData();
         Iterator<Map.Entry<Integer, HashMap<String, String>>> parentXML = parentMap.entrySet().iterator();
-
+        
+        int itemRoomID = 0;
+        
         while (parentXML.hasNext())
         {
             Map.Entry<Integer, HashMap<String, String>> parentEntry = parentXML.next();
 
             Map<String, String> map = parentEntry.getValue();
             Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
-
+            
+            Item currentItem = new Item();
+            
             while (entries.hasNext())
             {
                 Map.Entry<String, String> entry = entries.next();
-
+                
                 //Create item object if not already exists
-                if(!items.containsKey(parentEntry.getKey()))
+                if(currentItem.getItemID() != 0)
                 {
-                    items.put(parentEntry.getKey(), new Item());
+                    currentItem.setItemID(parentEntry.getKey());
                 }
 
                 if(entry.getKey().equals("item_room"))
                 {
                     //Set room ID where item is located
-                    items.get(parentEntry.getKey()).setItemRoom(Integer.parseInt(entry.getValue()));
+                    itemRoomID = Integer.parseInt(entry.getValue());
                 }else if(entry.getKey().equals("item_name"))
                 {
                     //Set item name
-                    items.get(parentEntry.getKey()).setItemName(entry.getValue());
+                    currentItem.setItemName(entry.getValue());
                 }else if(entry.getKey().equals("item_value"))
                 {
                     //Set item value
-                    items.get(parentEntry.getKey()).setItemValue(Integer.parseInt(entry.getValue()));
+                    currentItem.setItemValue(Integer.parseInt(entry.getValue()));
+                    
+                    //Add item object to room
+                    rooms.get(itemRoomID).setItem(currentItem);
                 }
             }
         }
@@ -271,7 +279,7 @@ public class Game
         else if (commandWord.equals("ga")) {
             goRoom(command);
         }else if (commandWord.equals("kijk")) {
-            //To be implemented
+            lookInRoom();
         }
         else if (commandWord.equals("stop")) {
             wantToQuit = quit(command);
@@ -347,7 +355,19 @@ public class Game
             }
         }
     }
-
+    
+    /**
+     * Look for items in the current room
+     */
+    public void lookInRoom()
+    {
+        for (Iterator it = currentRoom.getItems().iterator(); it.hasNext();) {
+            Item roomItem = (Item) it.next();
+            
+            System.out.println(roomItem.getItemName());
+        }
+    }
+    
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
