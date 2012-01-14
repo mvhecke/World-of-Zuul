@@ -394,7 +394,7 @@ public class Game
         
         int itemNumber = Integer.parseInt(command.getSecondWord()) - 1;
         
-        if(itemNumber < currentRoom.getItemsAmount())
+        if(currentRoom.getItemsAmount() >= itemNumber)
         {
             //Get Item object
             Item pickupItem = currentRoom.getItem(itemNumber);
