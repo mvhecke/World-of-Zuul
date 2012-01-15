@@ -57,6 +57,16 @@ public class Player {
     }
     
     /**
+     * Return inventory item
+     * @param int
+     * @return 
+     */
+    public Item getInventoryItem(int item)
+    {
+        return inventory.get(item);
+    }
+    
+    /**
      * Return the size of the item inventory
      * @return int
      */
