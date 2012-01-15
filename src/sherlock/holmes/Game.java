@@ -165,7 +165,7 @@ public class Game
     /**
      * Create all items and set al properties
      */
-    public void createItems()
+    private void createItems()
     {
         //Create all items from XML file and set all properties
         Map<Integer, HashMap<String, String>> parentMap = itemsXML.getXMLData();
@@ -290,7 +290,7 @@ public class Game
             askQuit();
         }
         // else command not recognised.
-        return wantToQuit;
+        return false;
     }
 
     // implementations of user commands:
