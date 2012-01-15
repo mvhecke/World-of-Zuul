@@ -25,6 +25,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private ArrayList<Item> currentRoomItems;
     private ArrayList<Room> visitedRooms;
     
     private XMLParser roomsXML;
@@ -65,6 +66,8 @@ public class Game
         itemsXML.runXMLConvert();
         
         createItems();
+        
+        currentRoomItems = new ArrayList<Item>();
         
         conversation = new Conversation();
     }
@@ -286,14 +289,12 @@ public class Game
         else if (commandWord.equals("uitgangen")) {
             showExits();
         }
-        else if (commandWord.equals("stop")) {
+        else if (commandWord.equals("stoppen")) {
             askQuit();
         }
         // else command not recognised.
         return false;
     }
-
-    // implementations of user commands:
 
     /**
      * Print out some help information.
@@ -361,25 +362,58 @@ public class Game
         }
     }
     
+    public void roomItems()
+    {
+        currentRoomItems.clear();
+        
+        for (Iterator it = currentRoom.getItems().iterator(); it.hasNext();)
+        {
+            Item roomItem = (Item) it.next();
+            
+            if(player.getInventorySize() > 0)
+            {
+                for (Iterator inventoryIterator = player.getInventory().iterator(); inventoryIterator.hasNext();) {
+                    Item inventoryItem = (Item) inventoryIterator.next();
+
+                    if(!inventoryItem.getItemName().equals(roomItem.getItemName()))
+                    {
+                        currentRoomItems.add(roomItem);
+                    }
+                }
+            }else
+            {
+                currentRoomItems.add(roomItem);
+            }
+        }
+    }
+    
     /**
      * Look for items in the current room
      */
     public void lookInRoom()
     {
+        int itemNumber = 1;
         String printString = "";
         
-        int itemNumber = 1;
+        //Reset and check current room items
+        roomItems();
         
-        for (Iterator it = currentRoom.getItems().iterator(); it.hasNext();) {
+        for (Iterator it = currentRoomItems.iterator(); it.hasNext();)
+        {
             Item roomItem = (Item) it.next();
             
             printString += itemNumber + ": " + roomItem.getItemName() + "\n";
-            
             itemNumber++;
         }
         
         //Cut of last new line
-        printString = printString.substring(0, printString.lastIndexOf("\n"));
+        if(printString.length() > 0)
+        {
+            printString = printString.substring(0, printString.lastIndexOf("\n"));
+        }else
+        {
+            printString = "Er zijn geen voorwerpen in deze kamer.";
+        }
         
         System.out.println(printString);
     }
@@ -396,17 +430,23 @@ public class Game
             return;
         }
         
+        //Reset and check current room items
+        roomItems();
+        
         int itemNumber = Integer.parseInt(command.getSecondWord()) - 1;
         
-        if(currentRoom.getItemsAmount() > itemNumber)
+        if(currentRoomItems.size() > itemNumber)
         {
             //Get Item object
-            Item pickupItem = currentRoom.getItem(itemNumber);
+            Item pickupItem = currentRoomItems.get(itemNumber);
             
             //Add item to inventory
             player.addItem(pickupItem);
 
             System.out.println("Het voorwerp '" + pickupItem.getItemName() + "' zit nu in je tas.");
+            
+            //Reset and check current room items
+            roomItems();
         }else
         {
             System.out.println("Voorwerp bestaat niet!");
