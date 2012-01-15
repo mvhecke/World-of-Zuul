@@ -26,14 +26,24 @@ public class Conversation {
     }
     
     /**
-     * Asks player to input a value
+     * Asks player a question and to input a value
      */
     public String askQuestionInput(String question)
     {
         System.out.println(question);
         System.out.print("> ");
-        String playerName = reader.nextLine().trim();
-        return playerName;
+        String questionAnswer = reader.nextLine().trim();
+        return questionAnswer;
+    }
+    
+    /**
+     * Asks player to input a value
+     */
+    public String askInput()
+    {
+        System.out.print("> ");
+        String questionAnswer = reader.nextLine().trim();
+        return questionAnswer;
     }
     
 }
