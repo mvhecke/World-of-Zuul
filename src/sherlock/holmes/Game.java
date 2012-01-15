@@ -236,8 +236,6 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Het lukte gewoon niet om het spel af te maken?");
-        System.out.println("Bedankt voor het spelen. Geef maar toe!");
     }
 
     /**
@@ -265,8 +263,6 @@ public class Game
      */
     private boolean processCommand(Command command) 
     {
-        boolean wantToQuit = false;
-
         if(command.isUnknown()) {
             System.out.println("Ik weet niet wat je bedoelt...");
             return false;
@@ -291,7 +287,7 @@ public class Game
             showExits();
         }
         else if (commandWord.equals("stop")) {
-            wantToQuit = quit(command);
+            askQuit();
         }
         // else command not recognised.
         return wantToQuit;
@@ -446,24 +442,63 @@ public class Game
         }
     }
     
+    /**
+     * Print all room exits
+     */
     public void showExits()
     {
         System.out.println(currentRoom.getExits());
     }
     
-    /** 
-     * "Quit" was entered. Check the rest of the command to see
-     * whether we really quit the game.
-     * @return true, if this command quits the game, false otherwise.
+    /**
+     * Asks the user if he/she wants to quit the game
      */
-    private boolean quit(Command command) 
+    public void askQuit()
     {
-        if(command.hasSecondWord()) {
-            System.out.println("Met wat stoppen?");
-            return false;
+        checkQuit(conversation.askQuestionInput("Weet je zeker dat je wilt stoppen? ja/nee"));
+    }
+    
+    /**
+     * Asks for user input again
+     */
+    public void askQuitAgain()
+    {
+        checkQuit(conversation.askInput());
+    }
+    
+    /**
+     * Check if user really wants to quit the game
+     * @param String User input
+     */
+    private void checkQuit(String answer)
+    {
+        if(answer.equals("ja"))
+        {
+            quit();
+        }else if(answer.equals("nee"))
+        {
+            System.out.println("Wat jij wil..");
+        }else
+        {
+            System.out.println("Is het nou zo moeilijk om ja of nee te antwoorden?");
+            askQuitAgain();
         }
-        else {
-            return true;  // signal that we want to quit
+    }
+    
+    /** 
+     * Quit the game and print message for 5 seconds
+     */
+    private void quit()
+    {
+        try{
+            System.out.println("Het lukte gewoon niet om het spel af te maken?");
+            System.out.println("Geef maar toe! Bedankt voor het spelen en tot ziens.");
+
+            Thread.sleep(5000);//sleep for 1000 ms
+            System.exit(0);  // signal that we want to quit
+        }
+        catch(Exception error){
+            System.err.println(error);
         }
     }
     
