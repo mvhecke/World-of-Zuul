@@ -32,7 +32,6 @@ public class Game
     private XMLParser itemsXML;
     
     private HashMap<Integer, Room> rooms;
-    private HashMap<Integer, Item> items;
     
     private Player player;
     private Conversation conversation;
@@ -56,9 +55,6 @@ public class Game
         
         //Store all room data
         createRooms();
-        
-        //Create item storage
-        items = new HashMap<Integer, Item>();
         
         //Get XML content for the items
         itemsXML = new XMLParser();
@@ -524,7 +520,9 @@ public class Game
         
         int inventoryItem = Integer.parseInt(command.getSecondWord()) - 1;
         
-        if(player.getInventorySize() <= Integer.parseInt(command.getSecondWord()))
+        System.out.println(player.getInventorySize() + " <=" + Integer.parseInt(command.getSecondWord()));
+        
+        if(Integer.parseInt(command.getSecondWord()) <= player.getInventorySize())
         {
             checkRemoveInventoryItem(conversation.askQuestionInput("Weet je zeker dat je wilt " + player.getInventoryItem(inventoryItem).getItemName() + " verwijderen? ja/nee"), inventoryItem);
         }else
@@ -556,7 +554,16 @@ public class Game
      */
     public void removeInventoryItem(int itemID)
     {
+        Item removableItem = player.getInventoryItem(itemID);
+        
+        //When an item is dropped add item to current room
+        currentRoomItems.add(removableItem);
+        
+        //Remove item from inventory
         player.removeItem(itemID);
+        
+        //Compare room and inventory items again
+        compareRoomInventoryItems();
     }
     
     /**
@@ -611,7 +618,7 @@ public class Game
             System.out.println("Het lukte gewoon niet om het spel af te maken?");
             System.out.println("Geef maar toe! Bedankt voor het spelen en tot ziens.");
 
-            Thread.sleep(5000);//sleep for 1000 ms
+            Thread.sleep(5000);//sleep for 5 seconds
             System.exit(0);  // signal that we want to quit
         }
         catch(Exception error){
