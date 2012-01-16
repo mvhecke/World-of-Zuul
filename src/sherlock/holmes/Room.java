@@ -21,6 +21,7 @@ public class Room
     private int buildingID;
     private String roomName;
     private String description;
+    private int itemRequirement;
 
     private HashMap<String, Room> exits;// stores exits of this room.
     private ArrayList<Item> items;
@@ -95,6 +96,24 @@ public class Room
     public String getDescription()
     {
         return description;
+    }
+    
+    /**
+     * Set the required item ID to access a room
+     * @param int The required item ID 
+     */
+    public void setItemRequirement(int itemRequirement)
+    {
+        this.itemRequirement = itemRequirement;
+    }
+    
+    /**
+     * Return the required item ID to access a room
+     * @return int The required item ID 
+     */
+    public int getItemRequirement()
+    {
+        return itemRequirement;
     }
 
     /**

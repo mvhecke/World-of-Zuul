@@ -106,6 +106,10 @@ public class Game
                 {
                     //Set description for room
                     rooms.get(parentEntry.getKey()).setDescription(entry.getValue());
+                }else if(entry.getKey().equals("item_requirement"))
+                {
+                    //Set description for room
+                    rooms.get(parentEntry.getKey()).setItemRequirement(Integer.parseInt(entry.getValue()));
                 }
             }
         }
