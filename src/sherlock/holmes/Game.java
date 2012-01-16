@@ -442,6 +442,7 @@ public class Game
      */
     public void pickupItem(Command command)
     {
+        //Check if the player has less than 4 items
         if(player.getInventorySize() < 4)
         {
             if(!command.hasSecondWord()) {
@@ -620,10 +621,9 @@ public class Game
     
     public static void main(String[] args)throws Exception
     {
-        
+        try{
             Game game = new Game();
             game.play();
-        try{   
         }catch(Exception e){
             System.err.println("Er heeft zich een ernstige fout voorgedaan waardoor het spel niet meer functioneerd.");
         }
