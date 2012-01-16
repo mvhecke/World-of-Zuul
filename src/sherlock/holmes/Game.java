@@ -362,28 +362,43 @@ public class Game
         }
     }
     
-    public void roomItems()
+    /**
+     * Compare room and inventory items with each other.
+     * When a room item compares with a inventory item
+     * it will be removed from the currentRoomItems
+     * ArrayList to prevent already picked up items
+     * to be displayed when looking or when trying
+     * to pick it up.
+     */
+    public void compareRoomInventoryItems()
     {
-        currentRoomItems.clear();
+        int ArrayListID = 0;
         
-        for (Iterator it = currentRoom.getItems().iterator(); it.hasNext();)
+        if(currentRoomItems.size() < 1)
         {
-            Item roomItem = (Item) it.next();
-            
-            if(player.getInventorySize() > 0)
+            currentRoomItems = currentRoom.getItems();
+        }
+        
+        if(player.getInventorySize() > 0)
+        {
+            for (Iterator it = currentRoomItems.iterator(); it.hasNext();)
             {
-                for (Iterator inventoryIterator = player.getInventory().iterator(); inventoryIterator.hasNext();) {
-                    Item inventoryItem = (Item) inventoryIterator.next();
+                Item roomItem = (Item) it.next();
 
-                    if(!inventoryItem.getItemName().equals(roomItem.getItemName()))
-                    {
-                        currentRoomItems.add(roomItem);
+                    for (Iterator inventoryIterator = player.getInventory().iterator(); inventoryIterator.hasNext();) {
+                        Item inventoryItem = (Item) inventoryIterator.next();
+
+                        if(inventoryItem.getItemName().equals(roomItem.getItemName()))
+                        {
+                            it.remove(); //If room item compares with inventory item remove it
+                        }
                     }
-                }
-            }else
-            {
-                currentRoomItems.add(roomItem);
+                ArrayListID++;
             }
+            
+        }else if(player.getInventorySize() == currentRoomItems.size())
+        {
+            currentRoomItems.clear();
         }
     }
     
@@ -395,8 +410,8 @@ public class Game
         int itemNumber = 1;
         String printString = "";
         
-        //Reset and check current room items
-        roomItems();
+        //Compare room and inventory items again
+        compareRoomInventoryItems();
         
         for (Iterator it = currentRoomItems.iterator(); it.hasNext();)
         {
@@ -430,9 +445,6 @@ public class Game
             return;
         }
         
-        //Reset and check current room items
-        roomItems();
-        
         int itemNumber = Integer.parseInt(command.getSecondWord()) - 1;
         
         if(currentRoomItems.size() > itemNumber)
@@ -445,8 +457,8 @@ public class Game
 
             System.out.println("Het voorwerp '" + pickupItem.getItemName() + "' zit nu in je tas.");
             
-            //Reset and check current room items
-            roomItems();
+            //Compare room and inventory items again
+            compareRoomInventoryItems();
         }else
         {
             System.out.println("Voorwerp bestaat niet!");
