@@ -286,6 +286,9 @@ public class Game
         else if (commandWord.equals("tas")) {
             showInventory();
         }
+        else if (commandWord.equals("verwijder")) {
+            askRemoveInventoryItem(command);
+        }
         else if (commandWord.equals("uitgangen")) {
             showExits();
         }
@@ -439,29 +442,40 @@ public class Game
      */
     public void pickupItem(Command command)
     {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Wat oppakken?");
-            return;
-        }
-        
-        int itemNumber = Integer.parseInt(command.getSecondWord()) - 1;
-        
-        if(currentRoomItems.size() > itemNumber)
+        if(player.getInventorySize() < 4)
         {
-            //Get Item object
-            Item pickupItem = currentRoomItems.get(itemNumber);
-            
-            //Add item to inventory
-            player.addItem(pickupItem);
+            if(!command.hasSecondWord()) {
+                // if there is no second word, we don't know what to pick up
+                System.out.println("Wat oppakken?");
+                return;
+            }
 
-            System.out.println("Het voorwerp '" + pickupItem.getItemName() + "' zit nu in je tas.");
-            
+            int itemNumber = Integer.parseInt(command.getSecondWord()) - 1;
+
             //Compare room and inventory items again
             compareRoomInventoryItems();
+            
+            if(currentRoomItems.size() > itemNumber)
+            {
+                //Get Item object
+                Item pickupItem = currentRoomItems.get(itemNumber);
+
+                //Add item to inventory
+                player.addItem(pickupItem);
+
+                System.out.println("Het voorwerp '" + pickupItem.getItemName() + "' zit nu in je tas.");
+
+                //Compare room and inventory items again
+                compareRoomInventoryItems();
+            }else
+            {
+                System.out.println("Voorwerp bestaat niet!");
+            }
         }else
         {
-            System.out.println("Voorwerp bestaat niet!");
+            System.out.println("Het is buiten slecht weer(London natuurlijk) en je krijgt een bericht van een");
+            System.out.println("Je hebt ruimte voor maar 4 items! Wil je iets oppakken? Dan zul je toch echt");
+            System.out.println("iets moeten laten vallen " + player.getPlayerName() + " !");
         }
     }
     
@@ -492,6 +506,56 @@ public class Game
         {
             System.out.println("Je tas is leeg!");
         }
+    }
+    
+    /**
+     * Aks if the player is sure he or she wants to remove the
+     * inventory item in case there is a second word.
+     * @param Command The inserted command
+     */
+    public void askRemoveInventoryItem(Command command)
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to remove
+            System.out.println("Verwijder wat?");
+            return;
+        }
+        
+        int inventoryItem = Integer.parseInt(command.getSecondWord()) - 1;
+        
+        if(player.getInventorySize() <= Integer.parseInt(command.getSecondWord()))
+        {
+            checkRemoveInventoryItem(conversation.askQuestionInput("Weet je zeker dat je wilt " + player.getInventoryItem(inventoryItem).getItemName() + " verwijderen? ja/nee"), inventoryItem);
+        }else
+        {
+            System.out.println("Item wat je wil verwijderen bestaat niet..");
+        }
+    }
+    
+    /**
+     * 
+     * @param String The players input answer
+     * @param int The item ID from the item the player wants to remove 
+     */
+    public void checkRemoveInventoryItem(String answer, int itemID)
+    {
+        if(answer.equals("ja"))
+        {
+            System.out.println(player.getInventoryItem(itemID).getItemName() + " is verwijderd!");
+            removeInventoryItem(itemID);
+        }else if(answer.equals("nee"))
+        {
+            System.out.println("Wat jij wil..");
+        }
+    }
+    
+    /**
+     * Remove the specified item from the players inventory
+     * @param int The inventory item ID 
+     */
+    public void removeInventoryItem(int itemID)
+    {
+        player.removeItem(itemID);
     }
     
     /**
@@ -559,7 +623,7 @@ public class Game
         
             Game game = new Game();
             game.play();
-        try{     
+        try{   
         }catch(Exception e){
             System.err.println("Er heeft zich een ernstige fout voorgedaan waardoor het spel niet meer functioneerd.");
         }
