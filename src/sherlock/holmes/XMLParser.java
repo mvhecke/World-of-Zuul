@@ -26,6 +26,9 @@ public class XMLParser extends DefaultHandler {
     
     private static HashMap<Integer, HashMap<String, String>> xmlData;
     
+    /**
+     * Constructor
+     */
     public XMLParser()
     {
         xmlData = new HashMap<Integer, HashMap<String, String>>();

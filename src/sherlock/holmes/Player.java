@@ -15,9 +15,11 @@ public class Player {
     private String playerName;
     private ArrayList<Item> inventory = new ArrayList<Item>();
     
+    /**
+     * Constructor
+     */
     public void Player()
     {
-        //inventory = new ArrayList<Item>();
     }
     
     /**

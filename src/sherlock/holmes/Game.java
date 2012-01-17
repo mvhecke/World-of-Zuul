@@ -26,7 +26,6 @@ public class Game
     private Parser parser;
     
     private Room currentRoom;
-    
     private int intCurrentRoom;
     
     private ArrayList<Room> visitedRooms;
@@ -40,7 +39,7 @@ public class Game
     private Conversation conversation;
         
     /**
-     * Create the game and initialise its internal map.
+     * Constructor
      */
     public Game() throws Exception
     {

@@ -17,7 +17,7 @@ public class Character {
     private Room room;
     
     /**
-     * Constructor - initialise the name and the room.
+     * Constructor
      */
     public Character(String name, Room room) {
         this.name = name;

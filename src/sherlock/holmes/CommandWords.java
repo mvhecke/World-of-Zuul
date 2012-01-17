@@ -18,7 +18,7 @@ public class CommandWords
     };
 
     /**
-     * Constructor - initialise the command words.
+     * Constructor
      */
     public CommandWords()
     {
