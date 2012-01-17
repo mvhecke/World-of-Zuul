@@ -24,8 +24,11 @@ import java.util.Map;
 public class Game 
 {
     private Parser parser;
+    
     private Room currentRoom;
-    private ArrayList<Item> currentRoomItems;
+    
+    private int intCurrentRoom;
+    
     private ArrayList<Room> visitedRooms;
     
     private XMLParser roomsXML;
@@ -63,7 +66,7 @@ public class Game
         
         createItems();
         
-        currentRoomItems = new ArrayList<Item>();
+        intCurrentRoom = 1;
         
         conversation = new Conversation();
     }
@@ -93,6 +96,8 @@ public class Game
                 {
                     rooms.put(parentEntry.getKey(), new Room());
                 }
+                
+                rooms.get(parentEntry.getKey()).setRoomID(parentEntry.getKey());
 
                 if(entry.getKey().equals("room_building"))
                 {
@@ -256,7 +261,7 @@ public class Game
         System.out.println();
         System.out.println("Type 'help' als je hulp nodig hebt.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(rooms.get(intCurrentRoom).getLongDescription());
     }
 
     /**
@@ -334,17 +339,19 @@ public class Game
                 lastRoom = visitedRooms.get(visitedRooms.size()-1);
             }
             
-            if(lastRoom == currentRoom || lastRoom == null)
+            if(lastRoom == rooms.get(intCurrentRoom) || lastRoom == null)
             {
                 System.out.println("Je kunt niet verder terug gaan!");
             }else
             {
                 currentRoom = lastRoom;
                 
+                intCurrentRoom = currentRoom.getRoomID();
+                
                 //Remove last room from ArrayList
                 visitedRooms.remove(visitedRooms.size()-1);
                 
-                System.out.println(currentRoom.getLongDescription());
+                System.out.println(rooms.get(intCurrentRoom).getLongDescription());
             }
             
         }else
@@ -352,7 +359,7 @@ public class Game
             String direction = command.getSecondWord();
 
             // Try to leave current room.
-            Room nextRoom = currentRoom.getExit(direction);
+            Room nextRoom = rooms.get(intCurrentRoom).getExit(direction);
 
             if (nextRoom == null) {
                 System.out.println("Er is geen deur!");
@@ -360,7 +367,10 @@ public class Game
             else {
                 visitedRooms.add(currentRoom); //Add current room to visited rooms
                 currentRoom = nextRoom; //Make next room current room
-                System.out.println(currentRoom.getLongDescription());
+                
+                intCurrentRoom = currentRoom.getRoomID();
+                
+                System.out.println(rooms.get(intCurrentRoom).getLongDescription());
             }
         }
     }
@@ -377,14 +387,9 @@ public class Game
     {
         int ArrayListID = 0;
         
-        if(currentRoomItems.size() < 1)
-        {
-            currentRoomItems = currentRoom.getItems();
-        }
-        
         if(player.getInventorySize() > 0)
         {
-            for (Iterator it = currentRoomItems.iterator(); it.hasNext();)
+            for (Iterator it = rooms.get(intCurrentRoom).getItems().iterator(); it.hasNext();)
             {
                 Item roomItem = (Item) it.next();
 
@@ -399,9 +404,6 @@ public class Game
                 ArrayListID++;
             }
             
-        }else if(player.getInventorySize() == currentRoomItems.size())
-        {
-            currentRoomItems.clear();
         }
     }
     
@@ -416,7 +418,7 @@ public class Game
         //Compare room and inventory items again
         compareRoomInventoryItems();
         
-        for (Iterator it = currentRoomItems.iterator(); it.hasNext();)
+        for (Iterator it = rooms.get(intCurrentRoom).getItems().iterator(); it.hasNext();)
         {
             Item roomItem = (Item) it.next();
             
@@ -456,10 +458,10 @@ public class Game
             //Compare room and inventory items again
             compareRoomInventoryItems();
             
-            if(currentRoomItems.size() > itemNumber)
+            if(rooms.get(intCurrentRoom).getItems().size() > itemNumber)
             {
                 //Get Item object
-                Item pickupItem = currentRoomItems.get(itemNumber);
+                Item pickupItem = rooms.get(intCurrentRoom).getItem(itemNumber);
 
                 //Add item to inventory
                 player.addItem(pickupItem);
@@ -528,7 +530,13 @@ public class Game
         
         if(Integer.parseInt(command.getSecondWord()) <= player.getInventorySize())
         {
-            checkRemoveInventoryItem(conversation.askQuestionInput("Weet je zeker dat je wilt " + player.getInventoryItem(inventoryItem).getItemName() + " verwijderen? ja/nee"), inventoryItem);
+            if(player.getInventoryItem(inventoryItem).getItemValue() == 0)
+            {
+                checkRemoveInventoryItem(conversation.askQuestionInput("Weet je zeker dat je wilt " + player.getInventoryItem(inventoryItem).getItemName() + " verwijderen? ja/nee"), inventoryItem);
+            }else
+            {
+                System.out.println("Je kunt dit voorwerp niet weg gooien, quest voorwerp!");
+            }
         }else
         {
             System.out.println("Item wat je wil verwijderen bestaat niet..");
@@ -561,7 +569,7 @@ public class Game
         Item removableItem = player.getInventoryItem(itemID);
         
         //When an item is dropped add item to current room
-        currentRoomItems.add(removableItem);
+        rooms.get(intCurrentRoom).setItem(removableItem);
         
         //Remove item from inventory
         player.removeItem(itemID);
@@ -575,7 +583,7 @@ public class Game
      */
     public void showExits()
     {
-        System.out.println(currentRoom.getExits());
+        System.out.println(rooms.get(intCurrentRoom).getExits());
     }
     
     /**
