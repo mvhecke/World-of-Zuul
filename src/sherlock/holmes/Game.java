@@ -279,6 +279,9 @@ public class Game
         if (commandWord.equals("help")) {
             printHelp();
         }
+        else if (commandWord.equals("drink thee")) {
+
+        }
         else if (commandWord.equals("ga")) {
             goRoom(command);
         }else if (commandWord.equals("kijk")) {
@@ -315,6 +318,15 @@ public class Game
         System.out.println();
         System.out.println("Je commando woorden zijn:");
         parser.showCommands();
+    }
+    
+    public void teaTime()
+    {
+        //Comparable effect with magic cookie
+        System.out.println("Je krijgt een helder moment en je herinnerd je dat je je pistool bent vergeten");
+        System.out.println("in je slaapkamer. En dat er een shank ligt in het cellencomplex, omdat je");
+        System.out.println("gisteren een gevangene bezig zag met een tandenborstel. Daarnaast herinner");
+        System.out.println("je je ook weer dat je Engelse thee niet te zuipen vindt!");
     }
 
     /** 

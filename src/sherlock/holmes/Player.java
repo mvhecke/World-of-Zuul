@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Player {
     
     private String playerName;
+    private boolean teaTime;
     private ArrayList<Item> inventory = new ArrayList<Item>();
     
     /**
@@ -38,6 +39,23 @@ public class Player {
     public String getPlayerName()
     {
         return playerName;
+    }
+    
+    /**
+     * Set the teatime true/false
+     */
+    public void setTeaTime(boolean tea)
+    {
+        this.teaTime = tea;
+    }
+    
+    /**
+     * Return wether or not it is tea time
+     * @return boolean Tea time true/false
+     */
+    public boolean getTeaTime()
+    {
+        return teaTime;
     }
     
     /**
