@@ -675,7 +675,7 @@ public class Game
             Game game = new Game();
             game.play();
         }catch(Exception e){
-            System.err.println("Er heeft zich een ernstige fout voorgedaan waardoor het spel niet meer functioneerd.");
+            System.err.println("Er heeft zich een ernstige fout voorgedaan waardoor het spel niet meer functioneert.");
         }
         
     }
