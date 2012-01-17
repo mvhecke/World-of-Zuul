@@ -296,6 +296,9 @@ public class Game
         else if (commandWord.equals("verwijder")) {
             askRemoveInventoryItem(command);
         }
+        else if (commandWord.equals("locatie")) {
+            beamPlayer(command);
+        }
         else if (commandWord.equals("uitgangen")) {
             showExits();
         }
@@ -346,6 +349,48 @@ public class Game
         {
             System.out.println("Sorry, niet in voorraad. C1000 hebben we niet in Engeland, dus verdroog maar.");
         }
+    }
+    
+    public void beamPlayer(Command command)
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to do
+            System.out.println("Wat doen?");
+            return;
+        }
+        
+        if(command.getSecondWord().equals("ga"))
+        {
+            if(player.getPlayerBeamerLocation() == 0)
+            {
+                System.out.println("Je kunt nergens naartoe gaan, want je hebt geen locatie opgeslagen!");
+            }else if(player.getPlayerBeamerLocation() == intCurrentRoom)
+            {
+                System.out.println("Waarom wil je naar deze locatie? Je bent er al!");
+            }else
+            {
+                System.out.println("Er komen 3 kleine huur Chineesjes aangerend, die pakken je op en die sleuren mee.");
+                beamRoom(player.getPlayerBeamerLocation());
+            }
+        }
+        
+        if(command.getSecondWord().equals("opslaan"))
+        {
+            System.out.println("Locatie opgeslagen!");
+            
+            player.setPlayerBeamerLocation(intCurrentRoom); //Save player location
+        }
+    }
+    
+    public void beamRoom(int roomID)
+    {
+        currentRoom = rooms.get(roomID);
+        intCurrentRoom = currentRoom.getRoomID();
+
+        //Remove last room from ArrayList
+        visitedRooms.clear();
+
+        System.out.println(rooms.get(intCurrentRoom).getLongDescription(player.getInventory()));
     }
 
     /** 

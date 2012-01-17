@@ -14,6 +14,8 @@ public class Player {
     
     private String playerName;
     private boolean teaTime;
+    private int playerBeamerLocation;
+    
     private ArrayList<Item> inventory = new ArrayList<Item>();
     
     /**
@@ -56,6 +58,24 @@ public class Player {
     public boolean getTeaTime()
     {
         return teaTime;
+    }
+    
+    /**
+     * Same the location of the room the player is currently in
+     * @param int The room ID 
+     */
+    public void setPlayerBeamerLocation(int location)
+    {
+        this.playerBeamerLocation = location;
+    }
+    
+    /**
+     * Return the saved room ID
+     * @return int The room ID
+     */
+    public int getPlayerBeamerLocation()
+    {
+        return playerBeamerLocation;
     }
     
     /**
