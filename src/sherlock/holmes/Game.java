@@ -279,7 +279,7 @@ public class Game
         if (commandWord.equals("help")) {
             printHelp();
         }
-        else if (commandWord.equals("drink thee")) {
+        else if (commandWord.equals("drink")) {
 
         }
         else if (commandWord.equals("ga")) {
