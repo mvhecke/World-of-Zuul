@@ -170,7 +170,16 @@ public class Room
         
         for (Entry<String, Room> entry : exits.entrySet())
         {
-            exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", ";
+            int ItemRequirement = entry.getValue().getItemRequirement();
+            
+            if(ItemRequirement > 0)
+            {
+                exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + " (Gesloten), "; 
+            }else
+            {
+                exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", "; 
+            }
+            
         }
         
         exitString = exitString.substring(0, exitString.lastIndexOf(","));

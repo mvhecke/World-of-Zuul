@@ -364,12 +364,41 @@ public class Game
                 System.out.println("Er is geen deur!");
             }
             else {
-                visitedRooms.add(currentRoom); //Add current room to visited rooms
-                currentRoom = nextRoom; //Make next room current room
                 
-                intCurrentRoom = currentRoom.getRoomID();
-                
-                System.out.println(rooms.get(intCurrentRoom).getLongDescription());
+                if(nextRoom.getItemRequirement() != 0)
+                {
+                    boolean requiredItem = false;
+                    
+                    for (Iterator inventoryIterator = player.getInventory().iterator(); inventoryIterator.hasNext();) {
+                        Item inventoryItem = (Item) inventoryIterator.next();
+
+                        if(inventoryItem.getItemID() == currentRoom.getItemRequirement())
+                        {
+                            requiredItem = true;
+                        }
+                    }
+                    
+                    if(requiredItem == true)
+                    {
+                        visitedRooms.add(currentRoom); //Add current room to visited rooms
+                        currentRoom = nextRoom; //Make next room current room
+
+                        intCurrentRoom = currentRoom.getRoomID();
+
+                        System.out.println(rooms.get(intCurrentRoom).getLongDescription());
+                    }else
+                    {
+                        System.out.println("Je hebt het vereiste voorwerp niet in je bezit om de deur te openen!");
+                    }
+                }else
+                {
+                    visitedRooms.add(currentRoom); //Add current room to visited rooms
+                    currentRoom = nextRoom; //Make next room current room
+
+                    intCurrentRoom = currentRoom.getRoomID();
+
+                    System.out.println(rooms.get(intCurrentRoom).getLongDescription());
+                }
             }
         }
     }
