@@ -476,7 +476,6 @@ public class Game
             }
         }else
         {
-            System.out.println("Het is buiten slecht weer(London natuurlijk) en je krijgt een bericht van een");
             System.out.println("Je hebt ruimte voor maar 4 items! Wil je iets oppakken? Dan zul je toch echt");
             System.out.println("iets moeten laten vallen " + player.getPlayerName() + " !");
         }
@@ -496,7 +495,13 @@ public class Game
             for (Iterator it = player.getInventory().iterator(); it.hasNext();) {
                 Item roomItem = (Item) it.next();
 
-                printString += itemNumber + ": " + roomItem.getItemName() + "\n";
+                if(roomItem.getItemValue() == 1)
+                {
+                    printString += itemNumber + ": " + roomItem.getItemName() + " (Quest item)" + "\n";
+                }else
+                {
+                    printString += itemNumber + ": " + roomItem.getItemName() + "\n";
+                }
 
                 itemNumber++;
             }
@@ -525,8 +530,6 @@ public class Game
         }
         
         int inventoryItem = Integer.parseInt(command.getSecondWord()) - 1;
-        
-        System.out.println(player.getInventorySize() + " <=" + Integer.parseInt(command.getSecondWord()));
         
         if(Integer.parseInt(command.getSecondWord()) <= player.getInventorySize())
         {
@@ -650,4 +653,3 @@ public class Game
     }
     
 }
-
