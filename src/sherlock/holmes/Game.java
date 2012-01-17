@@ -280,7 +280,7 @@ public class Game
             printHelp();
         }
         else if (commandWord.equals("drink")) {
-
+            teaTime(command);
         }
         else if (commandWord.equals("ga")) {
             goRoom(command);
@@ -320,13 +320,32 @@ public class Game
         parser.showCommands();
     }
     
-    public void teaTime()
+    public void teaTime(Command command)
     {
-        //Comparable effect with magic cookie
-        System.out.println("Je krijgt een helder moment en je herinnerd je dat je je pistool bent vergeten");
-        System.out.println("in je slaapkamer. En dat er een shank ligt in het cellencomplex, omdat je");
-        System.out.println("gisteren een gevangene bezig zag met een tandenborstel. Daarnaast herinner");
-        System.out.println("je je ook weer dat je Engelse thee niet te zuipen vindt!");
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Wat drinken?");
+            return;
+        }
+        
+        if(command.getSecondWord().equals("thee"))
+        {
+            if(player.getTeaTime() == false)
+            {
+                player.setTeaTime(true);
+                
+                System.out.println("Je krijgt een helder moment en je herinnerd je dat je je pistool bent vergeten");
+                System.out.println("in je slaapkamer. En dat er een shank ligt in het cellencomplex, omdat je");
+                System.out.println("gisteren een gevangene bezig zag met een tandenborstel. Daarnaast herinner");
+                System.out.println("je je ook weer dat je Engelse thee niet te zuipen vindt!");
+            }else
+            {
+                System.out.println("Alweer thee luie donder?!");
+            }
+        }else
+        {
+            System.out.println("Sorry, niet in voorraad. C1000 hebben we niet in Engeland, dus verdroog maar.");
+        }
     }
 
     /** 
