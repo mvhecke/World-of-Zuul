@@ -260,7 +260,7 @@ public class Game
         System.out.println();
         System.out.println("Type 'help' als je hulp nodig hebt.");
         System.out.println();
-        System.out.println(rooms.get(intCurrentRoom).getLongDescription());
+        System.out.println(rooms.get(intCurrentRoom).getLongDescription(player.getInventory()));
     }
 
     /**
@@ -350,7 +350,7 @@ public class Game
                 //Remove last room from ArrayList
                 visitedRooms.remove(visitedRooms.size()-1);
                 
-                System.out.println(rooms.get(intCurrentRoom).getLongDescription());
+                System.out.println(rooms.get(intCurrentRoom).getLongDescription(player.getInventory()));
             }
             
         }else
@@ -385,7 +385,7 @@ public class Game
 
                         intCurrentRoom = currentRoom.getRoomID();
 
-                        System.out.println(rooms.get(intCurrentRoom).getLongDescription());
+                        System.out.println(rooms.get(intCurrentRoom).getLongDescription(player.getInventory()));
                     }else
                     {
                         System.out.println("Je hebt het vereiste voorwerp niet in je bezit om de deur te openen!");
@@ -397,7 +397,7 @@ public class Game
 
                     intCurrentRoom = currentRoom.getRoomID();
 
-                    System.out.println(rooms.get(intCurrentRoom).getLongDescription());
+                    System.out.println(rooms.get(intCurrentRoom).getLongDescription(player.getInventory()));
                 }
             }
         }
@@ -614,7 +614,7 @@ public class Game
      */
     public void showExits()
     {
-        System.out.println(rooms.get(intCurrentRoom).getExitsString());
+        System.out.println(rooms.get(intCurrentRoom).getExitsString(player.getInventory()));
     }
     
     /**

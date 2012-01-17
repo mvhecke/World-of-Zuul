@@ -142,9 +142,9 @@ public class Room
      *     Exits: north west
      * @return A long description of this room
      */
-    public String getLongDescription()
+    public String getLongDescription(ArrayList playerInventory)
     {
-        return "Je bent nu in de " + roomName + ".\n" + "De uitgangen zijn:\n" + getExitsString();
+        return "Je bent nu in de " + roomName + ".\n" + "De uitgangen zijn:\n" + getExitsString(playerInventory);
     }
 
     /**
@@ -164,17 +164,43 @@ public class Room
         return arrayExits;
     }
     
-    public String getExitsString()
+    public String getExitsString(ArrayList inventory)
     {
+        ArrayList playerInventory = inventory;
         String exitString = "";
         
         for (Entry<String, Room> entry : exits.entrySet())
         {
             int ItemRequirement = entry.getValue().getItemRequirement();
-            
+
             if(ItemRequirement > 0)
             {
-                exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + " (Gesloten), "; 
+                if(playerInventory.size() > 0)
+                {
+                    boolean open = false;
+                    
+                    for (Iterator inventoryIterator = playerInventory.iterator(); inventoryIterator.hasNext();)
+                    {
+                        Item inventoryItem = (Item) inventoryIterator.next();
+                        
+                        if(ItemRequirement == inventoryItem.getItemID())
+                        {
+                            open = true;
+                        }
+                    }
+                    
+                    if(open == true)
+                    {
+                        exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", "; 
+                    }else
+                    {
+                        exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + " (Gesloten), "; 
+                    }
+                    
+                }else
+                {
+                    exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + " (Gesloten), "; 
+                }
             }else
             {
                 exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", "; 
