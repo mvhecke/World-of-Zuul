@@ -167,45 +167,76 @@ public class Room
     public String getExitsString(ArrayList inventory)
     {
         ArrayList playerInventory = inventory;
+        ArrayList<Room> lockedRooms = new ArrayList<Room>();
         String exitString = "";
         
+        //Loop through all exits
         for (Entry<String, Room> entry : exits.entrySet())
         {
             int ItemRequirement = entry.getValue().getItemRequirement();
-
+            
+            //Check if room has an item requirement
             if(ItemRequirement > 0)
             {
                 if(playerInventory.size() > 0)
                 {
-                    boolean open = false;
-                    
+                    //Check if there are any quest items in possession
                     for (Iterator inventoryIterator = playerInventory.iterator(); inventoryIterator.hasNext();)
                     {
                         Item inventoryItem = (Item) inventoryIterator.next();
                         
+                        //If matches add it to locked rooms
                         if(ItemRequirement == inventoryItem.getItemID())
                         {
-                            open = true;
+                            lockedRooms.add(entry.getValue());
                         }
                     }
-                    
-                    if(open == true)
-                    {
-                        exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", "; 
-                    }else
-                    {
-                        exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + " (Gesloten), "; 
-                    }
-                    
                 }else
                 {
-                    exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + " (Gesloten), "; 
+                    //If no inventory size guaranteed locked room
+                    lockedRooms.add(entry.getValue());
+                }
+            }
+            
+        }
+        
+        //Loop through al exits
+        for (Entry<String, Room> entry : exits.entrySet())
+        {
+            if(lockedRooms.size() > 0)
+            {
+                int ItemRequirement = entry.getValue().getItemRequirement();
+                
+                if(ItemRequirement > 0)
+                {
+                    int currentRoomID = entry.getValue().getRoomID();
+
+                    if(playerInventory.size() > 0)
+                    {
+                            for (Iterator lockedIterator = lockedRooms.iterator(); lockedIterator.hasNext();)
+                            {
+                                Room lockedRoom = (Room) lockedIterator.next();
+
+                                if(currentRoomID == lockedRoom.getRoomID())
+                                {
+                                    exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + " (Gesloten), "; 
+                                }else
+                                {
+                                    exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", "; 
+                                }
+                            }
+                    }else
+                    {
+                        exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + " (Gesloten), ";
+                    }
+                }else
+                {
+                    exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", ";
                 }
             }else
             {
-                exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", "; 
+                exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", ";
             }
-            
         }
         
         exitString = exitString.substring(0, exitString.lastIndexOf(","));
