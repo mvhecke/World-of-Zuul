@@ -369,7 +369,8 @@ public class Game
                 System.out.println("Waarom wil je naar deze locatie? Je bent er al!");
             }else
             {
-                System.out.println("Er komen 3 kleine huur Chineesjes aangerend, die pakken je op en die sleuren mee.");
+                System.out.println("Er komen 3 travestieten aangerend, die pakken je op en die sleuren mee. De");
+                System.out.println("Crimson Chin is er niets bij, owh wacht die bestaat nog niet.");
                 beamRoom(player.getPlayerBeamerLocation());
             }
         }
