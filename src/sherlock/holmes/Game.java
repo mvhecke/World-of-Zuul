@@ -472,6 +472,8 @@ public class Game
      */
     public void pickupItem(Command command)
     {
+        int itemNumber;
+        
         //Check if the player has less than 4 items
         if(player.getInventorySize() < 4)
         {
@@ -480,28 +482,35 @@ public class Game
                 System.out.println("Wat oppakken?");
                 return;
             }
-
-            int itemNumber = Integer.parseInt(command.getSecondWord()) - 1;
-
-            //Compare room and inventory items again
-            compareRoomInventoryItems();
             
-            if(rooms.get(intCurrentRoom).getItems().size() > itemNumber)
-            {
-                //Get Item object
-                Item pickupItem = rooms.get(intCurrentRoom).getItem(itemNumber);
-
-                //Add item to inventory
-                player.addItem(pickupItem);
-
-                System.out.println("Het voorwerp '" + pickupItem.getItemName() + "' zit nu in je tas.");
-
+            //Try if input if numeric
+            try {
+                itemNumber = Integer.parseInt(command.getSecondWord()) - 1;
+                
                 //Compare room and inventory items again
                 compareRoomInventoryItems();
-            }else
+
+                if(rooms.get(intCurrentRoom).getItems().size() > itemNumber)
+                {
+                    //Get Item object
+                    Item pickupItem = rooms.get(intCurrentRoom).getItem(itemNumber);
+
+                    //Add item to inventory
+                    player.addItem(pickupItem);
+
+                    System.out.println("Het voorwerp '" + pickupItem.getItemName() + "' zit nu in je tas.");
+
+                    //Compare room and inventory items again
+                    compareRoomInventoryItems();
+                }else
+                {
+                    System.out.println("Voorwerp bestaat niet!");
+                }
+            }catch(Exception e)
             {
-                System.out.println("Voorwerp bestaat niet!");
+                System.out.println("Het item wat je opgaf is ongeldig, dit moet numeriek zijn!");
             }
+
         }else
         {
             System.out.println("Je hebt ruimte voor maar 4 items! Wil je iets oppakken? Dan zul je toch echt");
@@ -551,27 +560,37 @@ public class Game
      */
     public void askRemoveInventoryItem(Command command)
     {
+        int inventoryItem;
+        
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know what to remove
             System.out.println("Verwijder wat?");
             return;
         }
         
-        int inventoryItem = Integer.parseInt(command.getSecondWord()) - 1;
-        
-        if(Integer.parseInt(command.getSecondWord()) <= player.getInventorySize())
-        {
-            if(player.getInventoryItem(inventoryItem).getItemValue() == 0)
+        //Try if input if numeric
+        try {
+            inventoryItem = Integer.parseInt(command.getSecondWord()) - 1;
+            
+            if(inventoryItem <= player.getInventorySize())
             {
-                checkRemoveInventoryItem(conversation.askQuestionInput("Weet je zeker dat je wilt " + player.getInventoryItem(inventoryItem).getItemName() + " verwijderen? ja/nee"), inventoryItem);
+                if(player.getInventoryItem(inventoryItem).getItemValue() == 0)
+                {
+                    checkRemoveInventoryItem(conversation.askQuestionInput("Weet je zeker dat je wilt " + player.getInventoryItem(inventoryItem).getItemName() + " verwijderen? ja/nee"), inventoryItem);
+                }else
+                {
+                    System.out.println("Je kunt dit voorwerp niet weg gooien, quest voorwerp!");
+                }
             }else
             {
-                System.out.println("Je kunt dit voorwerp niet weg gooien, quest voorwerp!");
+                System.out.println("Item wat je wil verwijderen bestaat niet..");
             }
-        }else
+        }catch(Exception e)
         {
-            System.out.println("Item wat je wil verwijderen bestaat niet..");
+            System.out.println("Het item wat je opgaf is ongeldig, dit moet numeriek zijn!");
         }
+        
+        
     }
     
     /**
