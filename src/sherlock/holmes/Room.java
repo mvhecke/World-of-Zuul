@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 
 public class Room 
 {
+    private int roomID;
     private int buildingID;
     private String roomName;
     private String description;
@@ -36,6 +37,24 @@ public class Room
     {
         exits = new HashMap<String, Room>();
         items = new ArrayList<Item>();
+    }
+    
+    /**
+     * Set the ID of the room
+     * @param int Room ID 
+     */
+    public void setRoomID(int roomID)
+    {
+        this.roomID = roomID;
+    }
+    
+    /**
+     * Return the ID of the room
+     * @return int Room ID
+     */
+    public int getRoomID()
+    {
+        return roomID;
     }
     
     /**
