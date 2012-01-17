@@ -251,7 +251,7 @@ public class Game
     private void printWelcome(String playername)
     {
         System.out.println();
-        System.out.println("Welkom " + playername + " bij Sherlock Holmes en de Moord in het Bordeel.");
+        System.out.println("Welkom " + playername + ", bij Sherlock Holmes en de Moord in het Bordeel.");
         System.out.println();
         System.out.println("Het is buiten slecht weer(London natuurlijk) en je krijgt een bericht van een");
         System.out.println("koerier. Er is een moord gepleegd in het lokale bordeel om de hoek! Aan jou");
@@ -585,7 +585,7 @@ public class Game
      */
     public void showExits()
     {
-        System.out.println(rooms.get(intCurrentRoom).getExits());
+        System.out.println(rooms.get(intCurrentRoom).getExitsString());
     }
     
     /**

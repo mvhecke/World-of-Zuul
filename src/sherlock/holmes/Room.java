@@ -14,6 +14,7 @@ package sherlock.holmes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 public class Room 
@@ -143,7 +144,7 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "Je bent nu in de " + roomName + ".\n" + getExits();
+        return "Je bent nu in de " + roomName + ".\n" + "De uitgangen zijn:\n" + getExitsString();
     }
 
     /**
@@ -151,23 +152,30 @@ public class Room
      * "Exits: north west".
      * @return Details of the room's exits.
      */
-    public String getExits()
+    public ArrayList getExits()
     {
-        String returnString = "Uitgangen :";
-        /*Set<String> keys = exits.keySet();
-        for(String exit : keys) {
-            returnString += " " + exit;
-        }*/
-        
-        returnString += "\n";
-        
-        for (Entry<String, Room> entry : exits.entrySet()) {
-            returnString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", ";
+        ArrayList<Room> arrayExits = new ArrayList<Room>();
+
+        for (Entry<String, Room> entry : exits.entrySet())
+        {
+            arrayExits.add(entry.getValue());
         }
         
-        String withoutLastComma = returnString.substring(0, returnString.lastIndexOf(","));
+        return arrayExits;
+    }
+    
+    public String getExitsString()
+    {
+        String exitString = "";
         
-        return withoutLastComma;
+        for (Entry<String, Room> entry : exits.entrySet())
+        {
+            exitString += entry.getKey() + " = " + entry.getValue().getRoomName() + ", ";
+        }
+        
+        exitString = exitString.substring(0, exitString.lastIndexOf(","));
+        
+        return exitString;
     }
 
     /**
