@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class Player {
     
     private String playerName;
+    private int currentRoomID;
+    
     private boolean teaTime;
     private int playerBeamerLocation;
     
@@ -41,6 +43,24 @@ public class Player {
     public String getPlayerName()
     {
         return playerName;
+    }
+    
+    /**
+     * Set the current room ID where the player is
+     * @param int The current room ID 
+     */
+    public void setCurrentRoomID(int currentRoomID)
+    {
+        this.currentRoomID = currentRoomID;
+    }
+    
+    /**
+     * Return the current room ID where the player is
+     * @return int The room ID
+     */
+    public int getCurrentRoomID()
+    {
+        return currentRoomID;
     }
     
     /**
