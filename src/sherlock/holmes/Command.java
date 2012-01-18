@@ -21,6 +21,9 @@ package sherlock.holmes;
 
 public class Command
 {
+    /*
+     * Fields
+     */
     private String commandWord;
     private String secondWord;
 

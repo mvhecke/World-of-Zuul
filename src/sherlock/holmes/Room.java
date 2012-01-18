@@ -19,6 +19,9 @@ import java.util.Map.Entry;
 
 public class Room 
 {
+    /*
+     * Fields
+     */
     private int roomID;
     private int buildingID;
     private String roomName;
@@ -29,10 +32,7 @@ public class Room
     private ArrayList<Item> items;
 
     /**
-     * Create a room described "description". Initially, it has
-     * no exits. "description" is something like "a kitchen" or
-     * "an open court yard".
-     * @param description The room's description.
+     * Constructor
      */
     public Room() 
     {
@@ -60,13 +60,17 @@ public class Room
     
     /**
      * Set the parent building from room
-     * @param int 
+     * @param int set buildingID
      */
     public void setBuildingID(int buildingID)
     {
         this.buildingID = buildingID;
     }
     
+    /*
+     * Return buildingID
+     * @return int buildingID
+     */
     public int getBuildingID()
     {
         return buildingID;
@@ -74,7 +78,7 @@ public class Room
     
     /**
      * Set the name of the room
-     * @param String 
+     * @param String roomName
      */
     public void setRoomName(String roomName)
     {
@@ -83,7 +87,7 @@ public class Room
     
     /**
      * Return the name of the room
-     * @return String
+     * @return String roomName
      */
     public String getRoomName()
     {
@@ -92,7 +96,7 @@ public class Room
     
     /**
      * Set description for room
-     * @param String 
+     * @param String description
      */
     public void setDescription(String description)
     {
@@ -110,8 +114,8 @@ public class Room
     }
 
     /**
-     * @return The short description of the room
-     * (the one that was defined in the constructor).
+     * return the description
+     * @return String
      */
     public String getDescription()
     {
@@ -140,7 +144,6 @@ public class Room
      * Return a description of the room in the form:
      *     You are in the kitchen.
      *     Exits: north west
-     * @return A long description of this room
      */
     public String getLongDescription(ArrayList playerInventory)
     {
@@ -150,7 +153,7 @@ public class Room
     /**
      * Return a string describing the room's exits, for example
      * "Exits: north west".
-     * @return Details of the room's exits.
+     * @return ArrayList
      */
     public ArrayList getExits()
     {
@@ -164,6 +167,10 @@ public class Room
         return arrayExits;
     }
     
+    /*
+     * Check if a room is closed. The player must have a quest item in his inventory to open a locked room
+     * @param Arraylist
+     */
     public String getExitsString(ArrayList inventory)
     {
         ArrayList playerInventory = inventory;
@@ -248,7 +255,7 @@ public class Room
      * Return the room that is reached if we go from this room in direction
      * "direction". If there is no room in that direction, return null.
      * @param direction The exit's direction.
-     * @return The room in the given direction.
+     * @return room
      */
     public Room getExit(String direction) 
     {

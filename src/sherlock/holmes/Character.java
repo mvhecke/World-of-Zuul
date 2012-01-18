@@ -18,6 +18,8 @@ public class Character {
     
     /**
      * Constructor
+     * @param String fill in a name
+     * @param Room set the room
      */
     public Character(String name, Room room) {
         this.name = name;
@@ -25,21 +27,23 @@ public class Character {
     }
    
     /**
-     * Set the name of the character
+     * @param String fill in a name
      */
     public void setName(String name){
         this.name = name;
     }
     
     /**
-     * Get name of the character
+     * Get the name of the character
+     * @return String
      */
     public String getName(){
         return name;
     }
     
     /**
-     * Set room
+     * Set the room
+     * @param Room set Room
      */
     public void setRoom(Room room){
         this.room = room;
@@ -47,6 +51,7 @@ public class Character {
 
     /**
      * Get room
+     * @return Room
      */
     public Room getRoom(){
         return room;

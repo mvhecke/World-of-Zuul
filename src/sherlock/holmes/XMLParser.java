@@ -19,6 +19,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 public class XMLParser extends DefaultHandler {
 
+    /*
+     * Fields
+     */
     private String filename;
     private int parentID;
     private String currentElement;
@@ -34,6 +37,9 @@ public class XMLParser extends DefaultHandler {
         xmlData = new HashMap<Integer, HashMap<String, String>>();
     }
     
+    /*
+     * Run the xml converter
+     */
     public void runXMLConvert() throws Exception
     {
         // Create SAX 2 parser...
@@ -94,6 +100,10 @@ public class XMLParser extends DefaultHandler {
         
     }
     
+    /*
+     * Give in a filename and split the name on .xml
+     * @param String filename
+     */
     public void setFilename(String filename)
     { 
         this.filename = filename; 
@@ -107,11 +117,19 @@ public class XMLParser extends DefaultHandler {
         this.xmlSplit = xmlSplitOutput;
     }
     
+    /*
+     * Return the filename
+     * @return String filename
+     */
     public String getFilename()
     {
         return this.filename;
     }
     
+    /*
+     * Return the xmlData
+     * @return Hashhmap xmlData
+     */
     public HashMap getXMLData()
     {
         return xmlData;

@@ -11,6 +11,9 @@ package sherlock.holmes;
 
 public class Item {
     
+    /*
+     * Fields
+     */
     private int itemID;
     private int itemRoom;
     private String itemName;
@@ -18,7 +21,7 @@ public class Item {
     
     /**
      * Set the item ID
-     * @param int 
+     * @param int set item
      */
     public void setItemID(int itemID)
     {
@@ -36,7 +39,7 @@ public class Item {
     
     /**
      * Set the location of the item based on the roomID
-     * @param int 
+     * @param int set itemRoom
      */
     public void setItemRoom(int itemRoom)
     {
@@ -54,7 +57,7 @@ public class Item {
     
     /**
      * Set the item name
-     * @param String 
+     * @param String set itemName
      */
     public void setItemName(String itemName)
     {

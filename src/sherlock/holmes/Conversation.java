@@ -12,7 +12,9 @@ import java.util.Scanner;
 
 public class Conversation {
     
-    //Field
+    /*
+     * Fields
+     */
     private Scanner reader;
     int progress;
 
@@ -27,6 +29,7 @@ public class Conversation {
     
     /**
      * Asks player a question and to input a value
+     * @param String give in a question
      */
     public String askQuestionInput(String question)
     {

@@ -23,6 +23,9 @@ import java.util.Map;
 
 public class Game 
 {
+    /*
+     * Fields
+     */
     private Parser parser;
     
     //private Room currentRoom;
@@ -265,7 +268,7 @@ public class Game
     /**
      * Given a command, process (that is: execute) the command.
      * @param command The command to be processed.
-     * @return true If the command ends the game, false otherwise.
+     * @return boolean
      */
     private boolean processCommand(Command command) 
     {
@@ -322,6 +325,10 @@ public class Game
         parser.showCommands();
     }
     
+    /*
+     * Drink tea to get a usefull hint
+     * @param command The command to be processed
+     */
     public void teaTime(Command command)
     {
         if(!command.hasSecondWord()) {
@@ -350,6 +357,10 @@ public class Game
         }
     }
     
+    /*
+     * Beam player to other room
+     * @param command The command to be processed.
+     */
     public void beamPlayer(Command command)
     {
         if(!command.hasSecondWord()) {
@@ -382,6 +393,9 @@ public class Game
         }
     }
     
+    /*
+     * @param int to select the room where the player wants to go
+     */
     public void beamRoom(int roomID)
     {
         player.setCurrentRoom(rooms.get(roomID));
@@ -396,6 +410,7 @@ public class Game
     /** 
      * Try to go to one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
+     * @param command The command to be processed
      */
     private void goRoom(Command command) 
     {
@@ -544,7 +559,7 @@ public class Game
     
     /**
      * Pickup specific item
-     * @param Command 
+     * @param Command The command to be processed 
      */
     public void pickupItem(Command command)
     {
@@ -670,7 +685,6 @@ public class Game
     }
     
     /**
-     * 
      * @param String The players input answer
      * @param int The item ID from the item the player wants to remove 
      */
@@ -764,6 +778,10 @@ public class Game
         }
     }
     
+    /*
+     * Main method tot start the game
+     * @param String[]
+     */
     public static void main(String[] args)throws Exception
     {
         

@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 public class Player {
     
+    /*
+     * Fields
+     */
     private String playerName;
     private int currentRoomID;
     private Room currentRoom;
@@ -23,7 +26,7 @@ public class Player {
     
     /**
      * Set player name
-     * @param String
+     * @param String set playerName
      */
     public void setPlayerName(String playerName)
     {
@@ -50,7 +53,7 @@ public class Player {
     
     /**
      * Return the current room ID where the player is
-     * @return int The room ID
+     * @return int
      */
     public int getCurrentRoomID()
     {
@@ -131,7 +134,6 @@ public class Player {
     /**
      * Return inventory item
      * @param int
-     * @return 
      */
     public Item getInventoryItem(int item)
     {
