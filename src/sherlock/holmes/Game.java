@@ -25,7 +25,7 @@ public class Game
 {
     private Parser parser;
     
-    private Room currentRoom;
+    //private Room currentRoom;
     //private int intCurrentRoom;
     
     private ArrayList<Room> visitedRooms;
@@ -44,7 +44,6 @@ public class Game
     public Game() throws Exception
     {
         parser = new Parser();
-
         player = new Player(); //Create player
         
         rooms = new HashMap<Integer, Room>();//Create room storage
@@ -165,8 +164,8 @@ public class Game
                 }
             }
         }
-
-        currentRoom = rooms.get(1); //Starts the game in the first room
+        
+        player.setCurrentRoom(rooms.get(1));//Starts the game in the first room
     }
     
     /**
@@ -385,8 +384,8 @@ public class Game
     
     public void beamRoom(int roomID)
     {
-        currentRoom = rooms.get(roomID);
-        player.setCurrentRoomID(currentRoom.getRoomID());
+        player.setCurrentRoom(rooms.get(roomID));
+        player.setCurrentRoomID(player.getCurrentRoom().getRoomID());
 
         //Remove last room from ArrayList
         visitedRooms.clear();
@@ -420,9 +419,9 @@ public class Game
                 System.out.println("Je kunt niet verder terug gaan!");
             }else
             {
-                currentRoom = lastRoom;
+                player.setCurrentRoom(lastRoom);
                 
-                player.setCurrentRoomID(currentRoom.getRoomID());
+                player.setCurrentRoomID(player.getCurrentRoom().getRoomID());
                 
                 //Remove last room from ArrayList
                 visitedRooms.remove(visitedRooms.size()-1);
@@ -449,7 +448,7 @@ public class Game
                     for (Iterator inventoryIterator = player.getInventory().iterator(); inventoryIterator.hasNext();) {
                         Item inventoryItem = (Item) inventoryIterator.next();
 
-                        if(inventoryItem.getItemID() == currentRoom.getItemRequirement())
+                        if(inventoryItem.getItemID() == player.getCurrentRoom().getItemRequirement())
                         {
                             requiredItem = true;
                         }
@@ -457,10 +456,10 @@ public class Game
                     
                     if(requiredItem == true)
                     {
-                        visitedRooms.add(currentRoom); //Add current room to visited rooms
-                        currentRoom = nextRoom; //Make next room current room
+                        visitedRooms.add(player.getCurrentRoom()); //Add current room to visited rooms
+                        player.setCurrentRoom(nextRoom);//Make next room current room
 
-                        player.setCurrentRoomID(currentRoom.getRoomID());
+                        player.setCurrentRoomID(player.getCurrentRoom().getRoomID());
 
                         System.out.println(rooms.get(player.getCurrentRoomID()).getLongDescription(player.getInventory()));
                     }else
@@ -469,10 +468,10 @@ public class Game
                     }
                 }else
                 {
-                    visitedRooms.add(currentRoom); //Add current room to visited rooms
-                    currentRoom = nextRoom; //Make next room current room
+                    visitedRooms.add(player.getCurrentRoom()); //Add current room to visited rooms
+                    player.setCurrentRoom(nextRoom);//Make next room current room
 
-                    player.setCurrentRoomID(currentRoom.getRoomID());
+                    player.setCurrentRoomID(player.getCurrentRoom().getRoomID());
 
                     System.out.println(rooms.get(player.getCurrentRoomID()).getLongDescription(player.getInventory()));
                 }
@@ -767,9 +766,10 @@ public class Game
     
     public static void main(String[] args)throws Exception
     {
-        try{
+        
             Game game = new Game();
             game.play();
+         try{   
         }catch(Exception e){
             System.err.println("Er heeft zich een ernstige fout voorgedaan waardoor het spel niet meer functioneert.");
         }
