@@ -14,18 +14,12 @@ public class Player {
     
     private String playerName;
     private int currentRoomID;
+    private Room currentRoom;
     
     private boolean teaTime;
     private int playerBeamerLocation;
     
     private ArrayList<Item> inventory = new ArrayList<Item>();
-    
-    /**
-     * Constructor
-     */
-    public void Player()
-    {
-    }
     
     /**
      * Set player name
@@ -61,6 +55,24 @@ public class Player {
     public int getCurrentRoomID()
     {
         return currentRoomID;
+    }
+    
+    /**
+     * Set the players current room
+     * @param Room The current room object 
+     */
+    public void setCurrentRoom(Room currentRoom)
+    {
+        this.currentRoom = currentRoom;
+    }
+    
+    /**
+     * Return the current room object the player is in
+     * @return Room The current room object
+     */
+    public Room getCurrentRoom()
+    {
+        return currentRoom;
     }
     
     /**
